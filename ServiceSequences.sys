@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<System Name="ServiceSequences" Comment="">
+	<VersionInfo Version="1.0" Author="AK124910" Date="2023-09-22">
+	</VersionInfo>
+	<Application Name="ServiceSequencesApp" Comment="">
+		<SubAppNetwork>
+		</SubAppNetwork>
+	</Application>
+</System>
