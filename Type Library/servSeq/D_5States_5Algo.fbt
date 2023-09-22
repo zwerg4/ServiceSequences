@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="D_5States_5Algo" Comment="Basic FB with empty ECC">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="AK124910" Date="2023-09-22">
+	</VersionInfo>
+	<CompilerInfo packageName="servSeq">
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="EI1" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI2" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI3" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI4" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI5" Type="Event" Comment="">
+			</Event>
+		</EventInputs>
+		<OutputVars>
+			<VarDeclaration Name="OutputString" Type="STRING" Comment=""/>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial State" x="800.0" y="1600.0">
+			</ECState>
+			<ECState Name="State_1" Comment="" x="2533.3333333333335" y="533.3333333333334">
+				<ECAction Algorithm="ALGO1"/>
+			</ECState>
+			<ECState Name="State_2" Comment="" x="2533.3333333333335" y="1066.6666666666667">
+				<ECAction Algorithm="ALGO2"/>
+			</ECState>
+			<ECState Name="State_3" Comment="" x="2533.3333333333335" y="1600.0">
+				<ECAction Algorithm="ALGO3"/>
+			</ECState>
+			<ECState Name="State_4" Comment="" x="2533.3333333333335" y="2133.3333333333335">
+				<ECAction Algorithm="ALGO4"/>
+			</ECState>
+			<ECState Name="State_5" Comment="" x="2533.3333333333335" y="2666.666666666667">
+				<ECAction Algorithm="ALGO5"/>
+			</ECState>
+			<ECTransition Source="START" Destination="State_1" Condition="EI1" Comment="" x="1766.6666666666667" y="1086.6666666666667"/>
+			<ECTransition Source="State_1" Destination="START" Condition="1" Comment="" x="2193.3333333333335" y="1046.6666666666667"/>
+			<ECTransition Source="START" Destination="State_2" Condition="EI2" Comment="" x="2020.0" y="1286.6666666666667"/>
+			<ECTransition Source="State_2" Destination="START" Condition="1" Comment="" x="1953.3333333333335" y="1513.3333333333335"/>
+			<ECTransition Source="START" Destination="State_3" Condition="EI3" Comment="" x="1986.6666666666667" y="1633.3333333333335"/>
+			<ECTransition Source="State_3" Destination="START" Condition="1" Comment="" x="1906.6666666666667" y="1806.6666666666667"/>
+			<ECTransition Source="START" Destination="State_4" Condition="EI4" Comment="" x="1873.3333333333335" y="1913.3333333333335"/>
+			<ECTransition Source="State_4" Destination="START" Condition="1" Comment="" x="1746.6666666666667" y="1986.6666666666667"/>
+			<ECTransition Source="START" Destination="State_5" Condition="EI5" Comment="" x="1806.6666666666667" y="2200.0"/>
+			<ECTransition Source="State_5" Destination="START" Condition="1" Comment="" x="1713.3333333333335" y="2380.0"/>
+		</ECC>
+		<Algorithm Name="ALGO1" Comment="">
+			<ST><![CDATA[ALGORITHM ALGO1
+OutputString := CONCAT(OutputString, 'ALGO1/');
+END_ALGORITHM]]></ST>
+		</Algorithm>
+		<Algorithm Name="ALGO2" Comment="">
+			<ST><![CDATA[
+
+ALGORITHM ALGO2
+OutputString := CONCAT(OutputString, 'ALGO2/');
+END_ALGORITHM]]></ST>
+		</Algorithm>
+		<Algorithm Name="ALGO3" Comment="">
+			<ST><![CDATA[
+
+ALGORITHM ALGO3
+OutputString := CONCAT(OutputString, 'ALGO3/');
+END_ALGORITHM]]></ST>
+		</Algorithm>
+		<Algorithm Name="ALGO4" Comment="">
+			<ST><![CDATA[
+
+ALGORITHM ALGO4
+OutputString := CONCAT(OutputString, 'ALGO4/');
+END_ALGORITHM]]></ST>
+		</Algorithm>
+		<Algorithm Name="ALGO5" Comment="">
+			<ST><![CDATA[
+
+ALGORITHM ALGO5
+OutputString := CONCAT(OutputString, 'ALGO5/');
+END_ALGORITHM
+
+]]></ST>
+		</Algorithm>
+	</BasicFB>
+</FBType>

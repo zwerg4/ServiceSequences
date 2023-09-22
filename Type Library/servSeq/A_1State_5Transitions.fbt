@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="A_1State_5Transitions" Comment="Basic FB with empty ECC">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="AK124910" Date="2023-09-22">
+	</VersionInfo>
+	<CompilerInfo packageName="servSeq">
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="EI1" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI2" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI3" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI4" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI5" Type="Event" Comment="">
+			</Event>
+		</EventInputs>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial State" x="2533.3333333333335" y="1466.6666666666667">
+			</ECState>
+			<ECTransition Source="START" Destination="START" Condition="EI1" Comment="" x="2673.3333333333335" y="2613.3333333333335"/>
+			<ECTransition Source="START" Destination="START" Condition="EI2" Comment="" x="1860.0" y="2080.0"/>
+			<ECTransition Source="START" Destination="START" Condition="EI3" Comment="" x="2020.0" y="693.3333333333334"/>
+			<ECTransition Source="START" Destination="START" Condition="EI4" Comment="" x="3406.666666666667" y="693.3333333333334"/>
+			<ECTransition Source="START" Destination="START" Condition="EI5" Comment="" x="3620.0" y="2133.3333333333335"/>
+		</ECC>
+	</BasicFB>
+</FBType>
