@@ -50,8 +50,8 @@
 			<ECTransition Source="State_3" Destination="START" Condition="1" Comment="" x="1906.6666666666667" y="1806.6666666666667"/>
 			<ECTransition Source="START" Destination="State_4" Condition="EI4" Comment="" x="1873.3333333333335" y="1913.3333333333335"/>
 			<ECTransition Source="State_4" Destination="START" Condition="1" Comment="" x="1746.6666666666667" y="1986.6666666666667"/>
-			<ECTransition Source="START" Destination="State_5" Condition="EI5" Comment="" x="1806.6666666666667" y="2200.0"/>
-			<ECTransition Source="State_5" Destination="START" Condition="1" Comment="" x="1713.3333333333335" y="2380.0"/>
+			<ECTransition Source="START" Destination="State_5" Condition="EI5" Comment="" x="1813.3333333333335" y="2146.666666666667"/>
+			<ECTransition Source="State_5" Destination="START" Condition="1" Comment="" x="1680.0" y="2326.666666666667"/>
 		</ECC>
 		<Algorithm Name="ALGO1" Comment="">
 			<ST><![CDATA[ALGORITHM ALGO1

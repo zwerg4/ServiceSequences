@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="UnreachableState" Comment="Basic FB with empty ECC">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="AK124910" Date="2023-11-22">
+	</VersionInfo>
+	<CompilerInfo packageName="servSeq">
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="EI1" Type="Event" Comment="">
+				<With Var="input"/>
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="EO1" Type="Event" Comment="">
+			</Event>
+		</EventOutputs>
+		<InputVars>
+			<VarDeclaration Name="input" Type="INT" Comment=""/>
+		</InputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial State" x="546.6666666666667" y="420.0">
+			</ECState>
+			<ECState Name="State" Comment="" x="2293.3333333333335" y="593.3333333333334">
+				<ECAction Algorithm="five"/>
+			</ECState>
+			<ECState Name="State_1" Comment="" x="2780.0" y="1486.6666666666667">
+			</ECState>
+			<ECState Name="State_2" Comment="" x="1940.0" y="1846.6666666666667">
+				<ECAction Output="EO1"/>
+			</ECState>
+			<ECTransition Source="START" Destination="State" Condition="EI1" Comment="" x="1586.6666666666667" y="593.3333333333334"/>
+			<ECTransition Source="State" Destination="State_1" Condition="[input = 5]" Comment="" x="2733.3333333333335" y="1120.0"/>
+			<ECTransition Source="State" Destination="State_2" Condition="[input &lt; 5]" Comment="" x="2260.0" y="1300.0"/>
+			<ECTransition Source="State_2" Destination="START" Condition="1" Comment="" x="1366.6666666666667" y="1246.6666666666667"/>
+			<ECTransition Source="State_1" Destination="START" Condition="1" Comment="" x="1820.0" y="1073.3333333333335"/>
+		</ECC>
+		<Algorithm Name="five" Comment="">
+			<ST><![CDATA[ALGORITHM five
+input := 5;
+END_ALGORITHM
+
+]]></ST>
+		</Algorithm>
+	</BasicFB>
+	<Service RightInterface="internal_interface" LeftInterface="external" Comment="Basic FB with empty ECC">
+		<ServiceSequence Name="ServiceSequence" Comment="">
+		</ServiceSequence>
+		<ServiceSequence Name="ServiceSequence_1" Comment="Coverage: NaN">
+			<Attribute Name="StartState" Type="STRING" Value="START"/>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>
