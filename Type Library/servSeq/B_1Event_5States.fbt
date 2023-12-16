@@ -26,27 +26,12 @@
 			</ECState>
 			<ECState Name="State_5" Comment="" x="8000.0" y="1200.0">
 			</ECState>
-			<ECState Name="State_6" Comment="" x="8000.0" y="2000.0">
-			</ECState>
-			<ECState Name="State_7" Comment="" x="6666.666666666667" y="2000.0">
-			</ECState>
-			<ECState Name="State_8" Comment="" x="5333.333333333334" y="2000.0">
-			</ECState>
-			<ECState Name="State_9" Comment="" x="4000.0" y="2000.0">
-			</ECState>
-			<ECState Name="State_10" Comment="" x="2666.666666666667" y="2000.0">
-			</ECState>
 			<ECTransition Source="START" Destination="State_1" Condition="EI1" Comment="" x="2133.3333333333335" y="1253.3333333333335"/>
 			<ECTransition Source="State_1" Destination="State_2" Condition="EI1" Comment="" x="3580.0" y="1246.6666666666667"/>
 			<ECTransition Source="State_2" Destination="State_3" Condition="EI1" Comment="" x="4960.0" y="1266.6666666666667"/>
-			<ECTransition Source="State_3" Destination="State_4" Condition="EI1" Comment="" x="6200.0" y="1266.6666666666667"/>
+			<ECTransition Source="State_3" Destination="State_4" Condition="EI1" Comment="" x="6213.333333333334" y="1240.0"/>
 			<ECTransition Source="State_4" Destination="State_5" Condition="EI1" Comment="" x="7633.333333333334" y="1266.6666666666667"/>
-			<ECTransition Source="State_5" Destination="State_6" Condition="EI1" Comment="" x="8926.666666666668" y="1706.6666666666667"/>
-			<ECTransition Source="State_6" Destination="State_7" Condition="EI1" Comment="" x="7466.666666666667" y="2053.3333333333335"/>
-			<ECTransition Source="State_7" Destination="State_8" Condition="EI1" Comment="" x="6146.666666666667" y="2060.0"/>
-			<ECTransition Source="State_8" Destination="State_9" Condition="EI1" Comment="" x="4813.333333333334" y="2066.666666666667"/>
-			<ECTransition Source="State_9" Destination="State_10" Condition="EI1" Comment="" x="3493.3333333333335" y="2053.3333333333335"/>
-			<ECTransition Source="State_10" Destination="START" Condition="1" Comment="" x="1706.6666666666667" y="1986.6666666666667"/>
+			<ECTransition Source="State_5" Destination="START" Condition="1" Comment="" x="4846.666666666667" y="1540.0"/>
 		</ECC>
 	</BasicFB>
 </FBType>
