@@ -19,6 +19,18 @@
 			<Event Name="EI5" Type="Event" Comment="">
 			</Event>
 		</EventInputs>
+		<EventOutputs>
+			<Event Name="Algo1" Type="Event" Comment="">
+			</Event>
+			<Event Name="Algo2" Type="Event" Comment="">
+			</Event>
+			<Event Name="Algo3" Type="Event" Comment="">
+			</Event>
+			<Event Name="Algo4" Type="Event" Comment="">
+			</Event>
+			<Event Name="Algo5" Type="Event" Comment="">
+			</Event>
+		</EventOutputs>
 		<OutputVars>
 			<VarDeclaration Name="OutputString" Type="STRING" Comment=""/>
 		</OutputVars>
@@ -28,19 +40,19 @@
 			<ECState Name="START" Comment="Initial State" x="800.0" y="1600.0">
 			</ECState>
 			<ECState Name="State_1" Comment="" x="2533.3333333333335" y="533.3333333333334">
-				<ECAction Algorithm="ALGO1"/>
+				<ECAction Algorithm="ALGO1" Output="Algo1"/>
 			</ECState>
 			<ECState Name="State_2" Comment="" x="2533.3333333333335" y="1066.6666666666667">
-				<ECAction Algorithm="ALGO2"/>
+				<ECAction Algorithm="ALGO2" Output="Algo2"/>
 			</ECState>
 			<ECState Name="State_3" Comment="" x="2533.3333333333335" y="1600.0">
-				<ECAction Algorithm="ALGO3"/>
+				<ECAction Algorithm="ALGO3" Output="Algo3"/>
 			</ECState>
 			<ECState Name="State_4" Comment="" x="2533.3333333333335" y="2133.3333333333335">
-				<ECAction Algorithm="ALGO4"/>
+				<ECAction Algorithm="ALGO4" Output="Algo4"/>
 			</ECState>
 			<ECState Name="State_5" Comment="" x="2533.3333333333335" y="2666.666666666667">
-				<ECAction Algorithm="ALGO5"/>
+				<ECAction Algorithm="ALGO5" Output="Algo5"/>
 			</ECState>
 			<ECTransition Source="START" Destination="State_1" Condition="EI1" Comment="" x="1766.6666666666667" y="1086.6666666666667"/>
 			<ECTransition Source="State_1" Destination="START" Condition="1" Comment="" x="2193.3333333333335" y="1046.6666666666667"/>

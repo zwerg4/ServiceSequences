@@ -19,6 +19,10 @@
 			<Event Name="PrintHelloWorld" Type="Event" Comment="">
 			</Event>
 		</EventInputs>
+		<EventOutputs>
+			<Event Name="Algo1" Type="Event" Comment="">
+			</Event>
+		</EventOutputs>
 		<OutputVars>
 			<VarDeclaration Name="OutputString" Type="STRING" Comment=""/>
 		</OutputVars>
@@ -36,7 +40,7 @@
 			<ECState Name="State_4" Comment="" x="2533.3333333333335" y="2133.3333333333335">
 			</ECState>
 			<ECState Name="HW" Comment="" x="2533.3333333333335" y="2666.666666666667">
-				<ECAction Algorithm="HWAlgo"/>
+				<ECAction Algorithm="HWAlgo" Output="Algo1"/>
 			</ECState>
 			<ECTransition Source="START" Destination="State_1" Condition="EI1" Comment="" x="1766.6666666666667" y="1086.6666666666667"/>
 			<ECTransition Source="State_1" Destination="START" Condition="1" Comment="" x="2193.3333333333335" y="1046.6666666666667"/>
