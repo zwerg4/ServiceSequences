@@ -1,0 +1,111 @@
+/*************************************************************************
+ *** FORTE Library Element
+ ***
+ *** This file was generated using the 4DIAC FORTE Export Filter V1.0.x NG!
+ ***
+ *** Name: A_1State_10Transitions
+ *** Description: Basic FB with empty ECC
+ *** Version:
+ ***     1.0: 2023-09-22/AK124910 -  -
+ *************************************************************************/
+
+#include "A_1State_10Transitions_fbt.h"
+#ifdef FORTE_ENABLE_GENERATED_SOURCE_CPP
+#include "servSeq/A_1State_10Transitions_fbt_gen.cpp"
+#endif
+
+#include "criticalregion.h"
+#include "resource.h"
+#include "iec61131_functions.h"
+#include "forte_array_common.h"
+#include "forte_array.h"
+#include "forte_array_fixed.h"
+#include "forte_array_variable.h"
+
+DEFINE_FIRMWARE_FB(FORTE_servSeq__A_1State_10Transitions, g_nStringIdservSeq__A_1State_10Transitions)
+
+const TForteInt16 FORTE_servSeq__A_1State_10Transitions::scmEIWithIndexes[] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+const CStringDictionary::TStringId FORTE_servSeq__A_1State_10Transitions::scmEventInputNames[] = {g_nStringIdEI1, g_nStringIdEI2, g_nStringIdEI3, g_nStringIdEI4, g_nStringIdEI5, g_nStringIdEI6, g_nStringIdEI7, g_nStringIdEI8, g_nStringIdEI9, g_nStringIdEI10};
+const SFBInterfaceSpec FORTE_servSeq__A_1State_10Transitions::scmFBInterfaceSpec = {
+  10, scmEventInputNames, nullptr, scmEIWithIndexes,
+  0, nullptr, nullptr, nullptr,
+  0, nullptr, nullptr,
+  0, nullptr, nullptr,
+  0, nullptr,
+  0, nullptr
+};
+
+FORTE_servSeq__A_1State_10Transitions::FORTE_servSeq__A_1State_10Transitions(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer) :
+    CBasicFB(paContainer, &scmFBInterfaceSpec, paInstanceNameId, nullptr) {
+}
+
+void FORTE_servSeq__A_1State_10Transitions::executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) {
+  do {
+    switch(mECCState) {
+      case scmStateSTART:
+        if(scmEventEI1ID == paEIID) enterStateSTART(paECET);
+        else
+        if(scmEventEI2ID == paEIID) enterStateSTART(paECET);
+        else
+        if(scmEventEI3ID == paEIID) enterStateSTART(paECET);
+        else
+        if(scmEventEI4ID == paEIID) enterStateSTART(paECET);
+        else
+        if(scmEventEI5ID == paEIID) enterStateSTART(paECET);
+        else
+        if(scmEventEI6ID == paEIID) enterStateSTART(paECET);
+        else
+        if(scmEventEI7ID == paEIID) enterStateSTART(paECET);
+        else
+        if(scmEventEI8ID == paEIID) enterStateSTART(paECET);
+        else
+        if(scmEventEI9ID == paEIID) enterStateSTART(paECET);
+        else
+        if(scmEventEI10ID == paEIID) enterStateSTART(paECET);
+        else return; //no transition cleared
+        break;
+      default:
+        DEVLOG_ERROR("The state is not in the valid range! The state value is: %d. The max value can be: 1.", mECCState.operator TForteUInt16 ());
+        mECCState = 0; // 0 is always the initial state
+        return;
+    }
+    paEIID = cgInvalidEventID; // we have to clear the event after the first check in order to ensure correct behavior
+  } while(true);
+}
+
+void FORTE_servSeq__A_1State_10Transitions::enterStateSTART(CEventChainExecutionThread *const) {
+  mECCState = scmStateSTART;
+}
+
+void FORTE_servSeq__A_1State_10Transitions::readInputData(TEventID) {
+  // nothing to do
+}
+
+void FORTE_servSeq__A_1State_10Transitions::writeOutputData(TEventID) {
+  // nothing to do
+}
+
+CIEC_ANY *FORTE_servSeq__A_1State_10Transitions::getDI(size_t) {
+  return nullptr;
+}
+
+CIEC_ANY *FORTE_servSeq__A_1State_10Transitions::getDO(size_t) {
+  return nullptr;
+}
+
+CEventConnection *FORTE_servSeq__A_1State_10Transitions::getEOConUnchecked(TPortId) {
+  return nullptr;
+}
+
+CDataConnection **FORTE_servSeq__A_1State_10Transitions::getDIConUnchecked(TPortId) {
+  return nullptr;
+}
+
+CDataConnection *FORTE_servSeq__A_1State_10Transitions::getDOConUnchecked(TPortId) {
+  return nullptr;
+}
+
+CIEC_ANY *FORTE_servSeq__A_1State_10Transitions::getVarInternal(size_t) {
+  return nullptr;
+}
+
