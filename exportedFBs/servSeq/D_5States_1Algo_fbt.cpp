@@ -18,7 +18,6 @@
 #include "resource.h"
 #include "forte_string.h"
 #include "forte_any_chars_variant.h"
-#include "forte_char.h"
 #include "forte_bool.h"
 #include "iec61131_functions.h"
 #include "forte_array_common.h"
@@ -168,28 +167,28 @@ CIEC_ANY *FORTE_servSeq__D_5States_1Algo::getVarInternal(size_t) {
 void FORTE_servSeq__D_5States_1Algo::alg_HWAlgo(void) {
 
   #line 2 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x48_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "H"_STRING);
   #line 3 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x45_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "E"_STRING);
   #line 4 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x4c_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "L"_STRING);
   #line 5 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x4c_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "L"_STRING);
   #line 6 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x4f_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "O"_STRING);
   #line 7 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x20_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, " "_STRING);
   #line 8 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x57_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "W"_STRING);
   #line 9 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x4f_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "O"_STRING);
   #line 10 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x52_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "R"_STRING);
   #line 11 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x4c_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "L"_STRING);
   #line 12 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x44_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "D"_STRING);
   #line 13 "D_5States_1Algo.fbt"
-  var_OutputString = func_CONCAT(var_OutputString, 0x21_CHAR);
+  var_OutputString = func_CONCAT(var_OutputString, "!"_STRING);
 }
 
