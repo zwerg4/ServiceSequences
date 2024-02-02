@@ -12,7 +12,7 @@ setInputData({});
 setOutputData({&OutputString});
 CFBTestFixtureBase::setup();
 }
- CIEC_STRING OutputString;
+CIEC_STRING OutputString;
 };
 BOOST_FIXTURE_TEST_SUITE(E_4States_11TransitionsTEST, E_4States_11Transitions_TestFixture)
 BOOST_AUTO_TEST_CASE(ServiceSequence) {

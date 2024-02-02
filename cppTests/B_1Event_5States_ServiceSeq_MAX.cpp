@@ -1,5 +1,4 @@
 #include "core/fbtests/fbtestfixture.h"
-#include "fbtests/fbtestfixture.h"
 #include <forte_uint.h>
 #include <forte_bool.h>
 #ifdef FORTE_ENABLE_GENERATED_SOURCE_CPP

@@ -12,7 +12,7 @@ setInputData({});
 setOutputData({&OutputString});
 CFBTestFixtureBase::setup();
 }
- CIEC_STRING OutputString;
+CIEC_STRING OutputString;
 };
 BOOST_FIXTURE_TEST_SUITE(E_4States_11TransitionsTEST, E_4States_11Transitions_TestFixture)
 BOOST_AUTO_TEST_CASE(ServiceSequence) {
@@ -23,6 +23,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_1) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(2);
@@ -30,6 +31,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_2) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(2);
@@ -37,6 +39,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_3) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(2);
@@ -44,6 +47,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_4) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(2);
@@ -58,6 +62,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_6) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(2);
@@ -65,6 +70,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_7) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(2);
@@ -72,6 +78,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_8) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(2);
@@ -79,6 +86,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_9) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(2);
@@ -93,6 +101,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_11) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(3);
@@ -100,6 +109,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_12) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(3);
@@ -107,6 +117,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_13) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(3);
@@ -114,6 +125,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_14) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(3);
@@ -128,6 +140,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_16) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(3);
@@ -135,6 +148,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_17) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(3);
@@ -142,6 +156,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_18) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(3);
@@ -149,6 +164,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_19) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(3);
@@ -163,6 +179,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_21) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(4);
@@ -170,6 +187,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_22) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(4);
@@ -177,6 +195,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_23) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(4);
@@ -184,6 +203,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_24) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(4);
@@ -198,6 +218,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_26) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(4);
@@ -205,6 +226,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_27) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(4);
@@ -212,6 +234,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_28) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(4);
@@ -219,6 +242,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_29) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(1);
 triggerEvent(4);
@@ -233,6 +257,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_31) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(1);
@@ -240,6 +265,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_32) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(1);
@@ -247,6 +273,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_33) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(1);
@@ -254,6 +281,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_34) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(1);
@@ -268,6 +296,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_36) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(1);
@@ -275,6 +304,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_37) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(1);
@@ -282,6 +312,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_38) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(1);
@@ -289,6 +320,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_39) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(1);
@@ -303,6 +335,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_41) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(3);
@@ -310,6 +343,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_42) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(3);
@@ -317,6 +351,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_43) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(3);
@@ -324,6 +359,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_44) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(3);
@@ -338,6 +374,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_46) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(3);
@@ -345,6 +382,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_47) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(3);
@@ -352,6 +390,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_48) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(3);
@@ -359,6 +398,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_49) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(3);
@@ -373,6 +413,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_51) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(4);
@@ -380,6 +421,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_52) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(4);
@@ -387,6 +429,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_53) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(4);
@@ -394,6 +437,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_54) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(4);
@@ -408,6 +452,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_56) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(4);
@@ -415,6 +460,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_57) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(4);
@@ -422,6 +468,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_58) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(4);
@@ -429,6 +476,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_59) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(2);
 triggerEvent(4);
@@ -443,6 +491,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_61) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(2);
@@ -450,6 +499,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_62) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(2);
@@ -457,6 +507,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_63) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(2);
@@ -464,6 +515,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_64) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(2);
@@ -478,6 +530,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_66) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(2);
@@ -485,6 +538,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_67) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(2);
@@ -492,6 +546,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_68) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(2);
@@ -499,6 +554,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_69) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(2);
@@ -513,6 +569,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_71) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(1);
@@ -520,6 +577,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_72) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(1);
@@ -527,6 +585,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_73) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(1);
@@ -534,6 +593,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_74) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(1);
@@ -548,6 +608,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_76) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(1);
@@ -555,6 +616,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_77) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(1);
@@ -562,6 +624,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_78) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(1);
@@ -569,6 +632,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_79) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(1);
@@ -583,6 +647,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_81) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(4);
@@ -590,6 +655,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_82) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(4);
@@ -597,6 +663,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_83) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(4);
@@ -604,6 +671,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_84) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(4);
@@ -618,6 +686,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_86) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(4);
@@ -625,6 +694,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_87) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(4);
@@ -632,6 +702,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_88) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(4);
@@ -639,6 +710,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_89) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(3);
 triggerEvent(4);
@@ -653,6 +725,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_91) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(2);
@@ -660,6 +733,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_92) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(2);
@@ -667,6 +741,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_93) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(2);
@@ -674,6 +749,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_94) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(2);
@@ -688,6 +764,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_96) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(2);
@@ -695,6 +772,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_97) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(2);
@@ -702,6 +780,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_98) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(2);
@@ -709,6 +788,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_99) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(2);
@@ -723,6 +803,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_101) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(3);
@@ -730,6 +811,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_102) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(3);
@@ -737,6 +819,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_103) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(3);
@@ -744,6 +827,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_104) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(3);
@@ -758,6 +842,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_106) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(3);
@@ -765,6 +850,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_107) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(3);
@@ -772,6 +858,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_108) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(3);
@@ -779,6 +866,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_109) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(3);
@@ -793,6 +881,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_111) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(1);
@@ -800,6 +889,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_112) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(1);
@@ -807,6 +897,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_113) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(1);
@@ -814,6 +905,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_114) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(1);
@@ -828,6 +920,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_116) {
+setECCState(CIEC_STATE(1));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(1);
@@ -835,6 +928,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_117) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(1);
@@ -842,6 +936,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_118) {
+setECCState(CIEC_STATE(3));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(1);
@@ -849,6 +944,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_119) {
+setECCState(CIEC_STATE(4));
 triggerEvent(0);
 triggerEvent(4);
 triggerEvent(1);
@@ -863,6 +959,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_121) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(2);
@@ -870,6 +967,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_122) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(2);
@@ -877,6 +975,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_123) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(2);
@@ -884,6 +983,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_124) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(2);
@@ -898,6 +998,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_126) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(2);
@@ -905,6 +1006,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_127) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(2);
@@ -912,6 +1014,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_128) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(2);
@@ -919,6 +1022,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_129) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(2);
@@ -933,6 +1037,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_131) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(3);
@@ -940,6 +1045,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_132) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(3);
@@ -947,6 +1053,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_133) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(3);
@@ -954,6 +1061,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_134) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(3);
@@ -968,6 +1076,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_136) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(3);
@@ -975,6 +1084,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_137) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(3);
@@ -982,6 +1092,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_138) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(3);
@@ -989,6 +1100,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_139) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(3);
@@ -1003,6 +1115,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_141) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(4);
@@ -1010,6 +1123,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_142) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(4);
@@ -1017,6 +1131,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_143) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(4);
@@ -1024,6 +1139,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_144) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(4);
@@ -1038,6 +1154,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_146) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(4);
@@ -1045,6 +1162,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_147) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(4);
@@ -1052,6 +1170,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_148) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(4);
@@ -1059,6 +1178,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_149) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(0);
 triggerEvent(4);
@@ -1073,6 +1193,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_151) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(0);
@@ -1080,6 +1201,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_152) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(0);
@@ -1087,6 +1209,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_153) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(0);
@@ -1094,6 +1217,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_154) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(0);
@@ -1108,6 +1232,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_156) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(0);
@@ -1115,6 +1240,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_157) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(0);
@@ -1122,6 +1248,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_158) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(0);
@@ -1129,6 +1256,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_159) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(0);
@@ -1143,6 +1271,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_161) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(3);
@@ -1150,6 +1279,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_162) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(3);
@@ -1157,6 +1287,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_163) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(3);
@@ -1164,6 +1295,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_164) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(3);
@@ -1178,6 +1310,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_166) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(3);
@@ -1185,6 +1318,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_167) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(3);
@@ -1192,6 +1326,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_168) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(3);
@@ -1199,6 +1334,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_169) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(3);
@@ -1213,6 +1349,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_171) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(4);
@@ -1220,6 +1357,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_172) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(4);
@@ -1227,6 +1365,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_173) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(4);
@@ -1234,6 +1373,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_174) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(4);
@@ -1248,6 +1388,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_176) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(4);
@@ -1255,6 +1396,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_177) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(4);
@@ -1262,6 +1404,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_178) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(4);
@@ -1269,6 +1412,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_179) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(2);
 triggerEvent(4);
@@ -1283,6 +1427,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_181) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(2);
@@ -1290,6 +1435,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_182) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(2);
@@ -1297,6 +1443,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_183) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(2);
@@ -1304,6 +1451,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_184) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(2);
@@ -1318,6 +1466,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_186) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(2);
@@ -1325,6 +1474,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_187) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(2);
@@ -1332,6 +1482,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_188) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(2);
@@ -1339,6 +1490,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_189) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(2);
@@ -1353,6 +1505,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_191) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(0);
@@ -1360,6 +1513,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_192) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(0);
@@ -1367,6 +1521,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_193) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(0);
@@ -1374,6 +1529,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_194) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(0);
@@ -1388,6 +1544,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_196) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(0);
@@ -1395,6 +1552,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_197) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(0);
@@ -1402,6 +1560,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_198) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(0);
@@ -1409,6 +1568,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_199) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(0);
@@ -1423,6 +1583,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_201) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(4);
@@ -1430,6 +1591,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_202) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(4);
@@ -1437,6 +1599,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_203) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(4);
@@ -1444,6 +1607,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_204) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(4);
@@ -1458,6 +1622,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_206) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(4);
@@ -1465,6 +1630,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_207) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(4);
@@ -1472,6 +1638,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_208) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(4);
@@ -1479,6 +1646,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_209) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(3);
 triggerEvent(4);
@@ -1493,6 +1661,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_211) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(2);
@@ -1500,6 +1669,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_212) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(2);
@@ -1507,6 +1677,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_213) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(2);
@@ -1514,6 +1685,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_214) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(2);
@@ -1528,6 +1700,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_216) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(2);
@@ -1535,6 +1708,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_217) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(2);
@@ -1542,6 +1716,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_218) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(2);
@@ -1549,6 +1724,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_219) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(2);
@@ -1563,6 +1739,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_221) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(3);
@@ -1570,6 +1747,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_222) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(3);
@@ -1577,6 +1755,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_223) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(3);
@@ -1584,6 +1763,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_224) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(3);
@@ -1598,6 +1778,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_226) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(3);
@@ -1605,6 +1786,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_227) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(3);
@@ -1612,6 +1794,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_228) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(3);
@@ -1619,6 +1802,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_229) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(3);
@@ -1633,6 +1817,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_231) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(0);
@@ -1640,6 +1825,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_232) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(0);
@@ -1647,6 +1833,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_233) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(0);
@@ -1654,6 +1841,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_234) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(0);
@@ -1668,6 +1856,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_236) {
+setECCState(CIEC_STATE(1));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(0);
@@ -1675,6 +1864,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_237) {
+setECCState(CIEC_STATE(2));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(0);
@@ -1682,6 +1872,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_238) {
+setECCState(CIEC_STATE(3));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(0);
@@ -1689,6 +1880,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_239) {
+setECCState(CIEC_STATE(4));
 triggerEvent(1);
 triggerEvent(4);
 triggerEvent(0);
@@ -1703,6 +1895,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_241) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(0);
@@ -1710,6 +1903,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_242) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(0);
@@ -1717,6 +1911,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_243) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(0);
@@ -1724,6 +1919,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_244) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(0);
@@ -1738,6 +1934,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_246) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(0);
@@ -1745,6 +1942,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_247) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(0);
@@ -1752,6 +1950,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_248) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(0);
@@ -1759,6 +1958,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_249) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(0);
@@ -1773,6 +1973,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_251) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(3);
@@ -1780,6 +1981,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_252) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(3);
@@ -1787,6 +1989,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_253) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(3);
@@ -1794,6 +1997,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_254) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(3);
@@ -1808,6 +2012,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_256) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(3);
@@ -1815,6 +2020,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_257) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(3);
@@ -1822,6 +2028,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_258) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(3);
@@ -1829,6 +2036,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_259) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(3);
@@ -1843,6 +2051,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_261) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(4);
@@ -1850,6 +2059,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_262) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(4);
@@ -1857,6 +2067,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_263) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(4);
@@ -1864,6 +2075,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_264) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(4);
@@ -1878,6 +2090,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_266) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(4);
@@ -1885,6 +2098,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_267) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(4);
@@ -1892,6 +2106,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_268) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(4);
@@ -1899,6 +2114,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_269) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(1);
 triggerEvent(4);
@@ -1913,6 +2129,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_271) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(1);
@@ -1920,6 +2137,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_272) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(1);
@@ -1927,6 +2145,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_273) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(1);
@@ -1934,6 +2153,7 @@ triggerEvent(3);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_274) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(1);
@@ -1948,6 +2168,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_276) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(1);
@@ -1955,6 +2176,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_277) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(1);
@@ -1962,6 +2184,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_278) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(1);
@@ -1969,6 +2192,7 @@ triggerEvent(4);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_279) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(1);
@@ -1983,6 +2207,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_281) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(3);
@@ -1990,6 +2215,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_282) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(3);
@@ -1997,6 +2223,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_283) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(3);
@@ -2004,6 +2231,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_284) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(3);
@@ -2018,6 +2246,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_286) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(3);
@@ -2025,6 +2254,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_287) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(3);
@@ -2032,6 +2262,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_288) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(3);
@@ -2039,6 +2270,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_289) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(3);
@@ -2053,6 +2285,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_291) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(4);
@@ -2060,6 +2293,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_292) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(4);
@@ -2067,6 +2301,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_293) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(4);
@@ -2074,6 +2309,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_294) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(4);
@@ -2088,6 +2324,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_296) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(4);
@@ -2095,6 +2332,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_297) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(4);
@@ -2102,6 +2340,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_298) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(4);
@@ -2109,6 +2348,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_299) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(0);
 triggerEvent(4);
@@ -2123,6 +2363,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_301) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(0);
@@ -2130,6 +2371,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_302) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(0);
@@ -2137,6 +2379,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_303) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(0);
@@ -2144,6 +2387,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_304) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(0);
@@ -2158,6 +2402,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_306) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(0);
@@ -2165,6 +2410,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_307) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(0);
@@ -2172,6 +2418,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_308) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(0);
@@ -2179,6 +2426,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_309) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(0);
@@ -2193,6 +2441,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_311) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(1);
@@ -2200,6 +2449,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_312) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(1);
@@ -2207,6 +2457,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_313) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(1);
@@ -2214,6 +2465,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_314) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(1);
@@ -2228,6 +2480,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_316) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(1);
@@ -2235,6 +2488,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_317) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(1);
@@ -2242,6 +2496,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_318) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(1);
@@ -2249,6 +2504,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_319) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(1);
@@ -2263,6 +2519,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_321) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(4);
@@ -2270,6 +2527,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_322) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(4);
@@ -2277,6 +2535,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_323) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(4);
@@ -2284,6 +2543,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_324) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(4);
@@ -2298,6 +2558,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_326) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(4);
@@ -2305,6 +2566,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_327) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(4);
@@ -2312,6 +2574,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_328) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(4);
@@ -2319,6 +2582,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_329) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(4);
@@ -2333,6 +2597,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_331) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(0);
@@ -2340,6 +2605,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_332) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(0);
@@ -2347,6 +2613,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_333) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(0);
@@ -2354,6 +2621,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_334) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(0);
@@ -2368,6 +2636,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_336) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(0);
@@ -2375,6 +2644,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_337) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(0);
@@ -2382,6 +2652,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_338) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(0);
@@ -2389,6 +2660,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_339) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(0);
@@ -2403,6 +2675,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_341) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(3);
@@ -2410,6 +2683,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_342) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(3);
@@ -2417,6 +2691,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_343) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(3);
@@ -2424,6 +2699,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_344) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(3);
@@ -2438,6 +2714,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_346) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(3);
@@ -2445,6 +2722,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_347) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(3);
@@ -2452,6 +2730,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_348) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(3);
@@ -2459,6 +2738,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_349) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(3);
@@ -2473,6 +2753,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_351) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(1);
@@ -2480,6 +2761,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_352) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(1);
@@ -2487,6 +2769,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_353) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(1);
@@ -2494,6 +2777,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_354) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(1);
@@ -2508,6 +2792,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_356) {
+setECCState(CIEC_STATE(1));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(1);
@@ -2515,6 +2800,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_357) {
+setECCState(CIEC_STATE(2));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(1);
@@ -2522,6 +2808,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_358) {
+setECCState(CIEC_STATE(3));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(1);
@@ -2529,6 +2816,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_359) {
+setECCState(CIEC_STATE(4));
 triggerEvent(2);
 triggerEvent(4);
 triggerEvent(1);
@@ -2543,6 +2831,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_361) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(2);
@@ -2550,6 +2839,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_362) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(2);
@@ -2557,6 +2847,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_363) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(2);
@@ -2564,6 +2855,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_364) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(2);
@@ -2578,6 +2870,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_366) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(2);
@@ -2585,6 +2878,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_367) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(2);
@@ -2592,6 +2886,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_368) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(2);
@@ -2599,6 +2894,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_369) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(2);
@@ -2613,6 +2909,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_371) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(0);
@@ -2620,6 +2917,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_372) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(0);
@@ -2627,6 +2925,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_373) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(0);
@@ -2634,6 +2933,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_374) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(0);
@@ -2648,6 +2948,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_376) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(0);
@@ -2655,6 +2956,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_377) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(0);
@@ -2662,6 +2964,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_378) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(0);
@@ -2669,6 +2972,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_379) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(0);
@@ -2683,6 +2987,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_381) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(4);
@@ -2690,6 +2995,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_382) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(4);
@@ -2697,6 +3003,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_383) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(4);
@@ -2704,6 +3011,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_384) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(4);
@@ -2718,6 +3026,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_386) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(4);
@@ -2725,6 +3034,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_387) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(4);
@@ -2732,6 +3042,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_388) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(4);
@@ -2739,6 +3050,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_389) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(1);
 triggerEvent(4);
@@ -2753,6 +3065,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_391) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(1);
@@ -2760,6 +3073,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_392) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(1);
@@ -2767,6 +3081,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_393) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(1);
@@ -2774,6 +3089,7 @@ triggerEvent(0);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_394) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(1);
@@ -2788,6 +3104,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_396) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(1);
@@ -2795,6 +3112,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_397) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(1);
@@ -2802,6 +3120,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_398) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(1);
@@ -2809,6 +3128,7 @@ triggerEvent(4);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_399) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(1);
@@ -2823,6 +3143,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_401) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(0);
@@ -2830,6 +3151,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_402) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(0);
@@ -2837,6 +3159,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_403) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(0);
@@ -2844,6 +3167,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_404) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(0);
@@ -2858,6 +3182,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_406) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(0);
@@ -2865,6 +3190,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_407) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(0);
@@ -2872,6 +3198,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_408) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(0);
@@ -2879,6 +3206,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_409) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(0);
@@ -2893,6 +3221,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_411) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(4);
@@ -2900,6 +3229,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_412) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(4);
@@ -2907,6 +3237,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_413) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(4);
@@ -2914,6 +3245,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_414) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(4);
@@ -2928,6 +3260,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_416) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(4);
@@ -2935,6 +3268,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_417) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(4);
@@ -2942,6 +3276,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_418) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(4);
@@ -2949,6 +3284,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_419) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(2);
 triggerEvent(4);
@@ -2963,6 +3299,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_421) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(2);
@@ -2970,6 +3307,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_422) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(2);
@@ -2977,6 +3315,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_423) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(2);
@@ -2984,6 +3323,7 @@ triggerEvent(1);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_424) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(2);
@@ -2998,6 +3338,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_426) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(2);
@@ -3005,6 +3346,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_427) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(2);
@@ -3012,6 +3354,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_428) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(2);
@@ -3019,6 +3362,7 @@ triggerEvent(4);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_429) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(2);
@@ -3033,6 +3377,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_431) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(1);
@@ -3040,6 +3385,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_432) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(1);
@@ -3047,6 +3393,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_433) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(1);
@@ -3054,6 +3401,7 @@ triggerEvent(2);
 triggerEvent(4);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_434) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(1);
@@ -3068,6 +3416,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_436) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(1);
@@ -3075,6 +3424,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_437) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(1);
@@ -3082,6 +3432,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_438) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(1);
@@ -3089,6 +3440,7 @@ triggerEvent(4);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_439) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(1);
@@ -3103,6 +3455,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_441) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(4);
@@ -3110,6 +3463,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_442) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(4);
@@ -3117,6 +3471,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_443) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(4);
@@ -3124,6 +3479,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_444) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(4);
@@ -3138,6 +3494,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_446) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(4);
@@ -3145,6 +3502,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_447) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(4);
@@ -3152,6 +3510,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_448) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(4);
@@ -3159,6 +3518,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_449) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(0);
 triggerEvent(4);
@@ -3173,6 +3533,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_451) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(2);
@@ -3180,6 +3541,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_452) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(2);
@@ -3187,6 +3549,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_453) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(2);
@@ -3194,6 +3557,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_454) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(2);
@@ -3208,6 +3572,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_456) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(2);
@@ -3215,6 +3580,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_457) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(2);
@@ -3222,6 +3588,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_458) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(2);
@@ -3229,6 +3596,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_459) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(2);
@@ -3243,6 +3611,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_461) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(0);
@@ -3250,6 +3619,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_462) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(0);
@@ -3257,6 +3627,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_463) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(0);
@@ -3264,6 +3635,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_464) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(0);
@@ -3278,6 +3650,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_466) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(0);
@@ -3285,6 +3658,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_467) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(0);
@@ -3292,6 +3666,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_468) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(0);
@@ -3299,6 +3674,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_469) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(0);
@@ -3313,6 +3689,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_471) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(1);
@@ -3320,6 +3697,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_472) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(1);
@@ -3327,6 +3705,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_473) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(1);
@@ -3334,6 +3713,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_474) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(1);
@@ -3348,6 +3728,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_476) {
+setECCState(CIEC_STATE(1));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(1);
@@ -3355,6 +3736,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_477) {
+setECCState(CIEC_STATE(2));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(1);
@@ -3362,6 +3744,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_478) {
+setECCState(CIEC_STATE(3));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(1);
@@ -3369,6 +3752,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_479) {
+setECCState(CIEC_STATE(4));
 triggerEvent(3);
 triggerEvent(4);
 triggerEvent(1);
@@ -3383,6 +3767,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_481) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(2);
@@ -3390,6 +3775,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_482) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(2);
@@ -3397,6 +3783,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_483) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(2);
@@ -3404,6 +3791,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_484) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(2);
@@ -3418,6 +3806,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_486) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(2);
@@ -3425,6 +3814,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_487) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(2);
@@ -3432,6 +3822,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_488) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(2);
@@ -3439,6 +3830,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_489) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(2);
@@ -3453,6 +3845,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_491) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(3);
@@ -3460,6 +3853,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_492) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(3);
@@ -3467,6 +3861,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_493) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(3);
@@ -3474,6 +3869,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_494) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(3);
@@ -3488,6 +3884,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_496) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(3);
@@ -3495,6 +3892,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_497) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(3);
@@ -3502,6 +3900,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_498) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(3);
@@ -3509,6 +3908,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_499) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(3);
@@ -3523,6 +3923,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_501) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(0);
@@ -3530,6 +3931,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_502) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(0);
@@ -3537,6 +3939,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_503) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(0);
@@ -3544,6 +3947,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_504) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(0);
@@ -3558,6 +3962,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_506) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(0);
@@ -3565,6 +3970,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_507) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(0);
@@ -3572,6 +3978,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_508) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(0);
@@ -3579,6 +3986,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_509) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(1);
 triggerEvent(0);
@@ -3593,6 +4001,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_511) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(1);
@@ -3600,6 +4009,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_512) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(1);
@@ -3607,6 +4017,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_513) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(1);
@@ -3614,6 +4025,7 @@ triggerEvent(3);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_514) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(1);
@@ -3628,6 +4040,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_516) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(1);
@@ -3635,6 +4048,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_517) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(1);
@@ -3642,6 +4056,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_518) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(1);
@@ -3649,6 +4064,7 @@ triggerEvent(0);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_519) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(1);
@@ -3663,6 +4079,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_521) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(3);
@@ -3670,6 +4087,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_522) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(3);
@@ -3677,6 +4095,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_523) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(3);
@@ -3684,6 +4103,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_524) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(3);
@@ -3698,6 +4118,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_526) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(3);
@@ -3705,6 +4126,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_527) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(3);
@@ -3712,6 +4134,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_528) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(3);
@@ -3719,6 +4142,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_529) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(3);
@@ -3733,6 +4157,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_531) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(0);
@@ -3740,6 +4165,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_532) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(0);
@@ -3747,6 +4173,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_533) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(0);
@@ -3754,6 +4181,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_534) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(0);
@@ -3768,6 +4196,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_536) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(0);
@@ -3775,6 +4204,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_537) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(0);
@@ -3782,6 +4212,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_538) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(0);
@@ -3789,6 +4220,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_539) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(2);
 triggerEvent(0);
@@ -3803,6 +4235,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_541) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(2);
@@ -3810,6 +4243,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_542) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(2);
@@ -3817,6 +4251,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_543) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(2);
@@ -3824,6 +4259,7 @@ triggerEvent(1);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_544) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(2);
@@ -3838,6 +4274,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_546) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(2);
@@ -3845,6 +4282,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_547) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(2);
@@ -3852,6 +4290,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_548) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(2);
@@ -3859,6 +4298,7 @@ triggerEvent(0);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_549) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(2);
@@ -3873,6 +4313,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_551) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(1);
@@ -3880,6 +4321,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_552) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(1);
@@ -3887,6 +4329,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_553) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(1);
@@ -3894,6 +4337,7 @@ triggerEvent(2);
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_554) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(1);
@@ -3908,6 +4352,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_556) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(1);
@@ -3915,6 +4360,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_557) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(1);
@@ -3922,6 +4368,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_558) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(1);
@@ -3929,6 +4376,7 @@ triggerEvent(0);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_559) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(1);
@@ -3943,6 +4391,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_561) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(0);
@@ -3950,6 +4399,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_562) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(0);
@@ -3957,6 +4407,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_563) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(0);
@@ -3964,6 +4415,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_564) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(0);
@@ -3978,6 +4430,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_566) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(0);
@@ -3985,6 +4438,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_567) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(0);
@@ -3992,6 +4446,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_568) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(0);
@@ -3999,6 +4454,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_569) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(3);
 triggerEvent(0);
@@ -4013,6 +4469,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_571) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(2);
@@ -4020,6 +4477,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_572) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(2);
@@ -4027,6 +4485,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_573) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(2);
@@ -4034,6 +4493,7 @@ triggerEvent(3);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_574) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(2);
@@ -4048,6 +4508,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_576) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(2);
@@ -4055,6 +4516,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_577) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(2);
@@ -4062,6 +4524,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_578) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(2);
@@ -4069,6 +4532,7 @@ triggerEvent(1);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_579) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(2);
@@ -4083,6 +4547,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_581) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(3);
@@ -4090,6 +4555,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_582) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(3);
@@ -4097,6 +4563,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_583) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(3);
@@ -4104,6 +4571,7 @@ triggerEvent(2);
 triggerEvent(1);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_584) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(3);
@@ -4118,6 +4586,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_586) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(3);
@@ -4125,6 +4594,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_587) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(3);
@@ -4132,6 +4602,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_588) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(3);
@@ -4139,6 +4610,7 @@ triggerEvent(1);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_589) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(3);
@@ -4153,6 +4625,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_591) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(1);
@@ -4160,6 +4633,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_592) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(1);
@@ -4167,6 +4641,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_593) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(1);
@@ -4174,6 +4649,7 @@ triggerEvent(3);
 triggerEvent(2);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_594) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(1);
@@ -4188,6 +4664,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_596) {
+setECCState(CIEC_STATE(1));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(1);
@@ -4195,6 +4672,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_597) {
+setECCState(CIEC_STATE(2));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(1);
@@ -4202,6 +4680,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_598) {
+setECCState(CIEC_STATE(3));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(1);
@@ -4209,6 +4688,7 @@ triggerEvent(2);
 triggerEvent(3);
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_599) {
+setECCState(CIEC_STATE(4));
 triggerEvent(4);
 triggerEvent(0);
 triggerEvent(1);

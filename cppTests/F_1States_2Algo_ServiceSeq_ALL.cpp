@@ -12,22 +12,27 @@ setInputData({});
 setOutputData({&OutputString});
 CFBTestFixtureBase::setup();
 }
- CIEC_STRING OutputString;
+CIEC_STRING OutputString;
 };
 BOOST_FIXTURE_TEST_SUITE(F_1States_2AlgoTEST, F_1States_2Algo_TestFixture)
 BOOST_AUTO_TEST_CASE(ServiceSequence) {
 triggerEvent(0);
-BOOST_ASSERT(func_EQ(OutputString,('ALGO1/')));
-BOOST_ASSERT(func_EQ(OutputString,('ALGO1/ALGO2/')));
-BOOST_ASSERT(func_EQ(OutputString,('ALGO1/ALGO2/ALGO2/')));
-BOOST_ASSERT(func_EQ(OutputString,('ALGO1/ALGO2/ALGO2/ALGO1/')));
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_1) {
 triggerEvent(0);
-BOOST_ASSERT(func_EQ(OutputString,('ALGO2/')));
-BOOST_ASSERT(func_EQ(OutputString,('ALGO2/ALGO1/')));
+BOOST_TEST(OutputString == CIEC_STRING('ALGO1/'));
+BOOST_TEST(OutputString == CIEC_STRING('ALGO1/ALGO2/'));
+BOOST_TEST(OutputString == CIEC_STRING('ALGO1/ALGO2/ALGO2/'));
+BOOST_TEST(OutputString == CIEC_STRING('ALGO1/ALGO2/ALGO2/ALGO1/'));
 }
 BOOST_AUTO_TEST_CASE(ServiceSequence_2) {
+setECCState(CIEC_STATE(1));
+triggerEvent(0);
+BOOST_TEST(OutputString == CIEC_STRING('ALGO2/'));
+BOOST_TEST(OutputString == CIEC_STRING('ALGO2/ALGO1/'));
+}
+BOOST_AUTO_TEST_CASE(ServiceSequence_3) {
+setECCState(CIEC_STATE(2));
 triggerEvent(0);
 }
 BOOST_AUTO_TEST_SUITE_END()

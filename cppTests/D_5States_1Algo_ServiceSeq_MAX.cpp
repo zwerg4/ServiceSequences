@@ -12,7 +12,7 @@ setInputData({});
 setOutputData({&OutputString});
 CFBTestFixtureBase::setup();
 }
- CIEC_STRING OutputString;
+CIEC_STRING OutputString;
 };
 BOOST_FIXTURE_TEST_SUITE(D_5States_1AlgoTEST, D_5States_1Algo_TestFixture)
 BOOST_AUTO_TEST_CASE(ServiceSequence) {
@@ -21,12 +21,6 @@ triggerEvent(1);
 triggerEvent(2);
 triggerEvent(3);
 triggerEvent(4);
-
-//BOOST_ASSERT(func_EQ(OutputString,CIEC_STRING("HELLO WORLD!")));
-//BOOST_CHECK_EQUAL(OutputString,"HELLO WORLD!");
-
-std::cout << "output string: " << OutputString.c_str() << std::endl;
-BOOST_TEST(OutputString == "HELLO WORLD!");
-
+BOOST_TEST(OutputString == CIEC_STRING('HELLO WORLD!'));
 }
 BOOST_AUTO_TEST_SUITE_END()
