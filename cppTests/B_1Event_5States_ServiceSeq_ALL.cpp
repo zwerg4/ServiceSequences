@@ -1,13 +1,13 @@
-#include "../../core/fbtests/fbtestfixture.h"
+#include "core/fbtests/fbtestfixture.h"
 #include <forte_uint.h>
 #include <forte_bool.h>
 #ifdef FORTE_ENABLE_GENERATED_SOURCE_CPP
-#include "B_1Event_5States_tester_gen.cpp"
+#include "B_1Event_5States_ServiceSeq_ALL_gen.cpp"
 #endif
 
 struct B_1Event_5States_TestFixture : public CFBTestFixtureBase {
 B_1Event_5States_TestFixture() : 
-CFBTestFixtureBase(g_nStringIdB_1Event_5States) {
+CFBTestFixtureBase(g_nStringIdservSeq__B_1Event_5States) {
 setInputData({});
 setOutputData({});
 CFBTestFixtureBase::setup();

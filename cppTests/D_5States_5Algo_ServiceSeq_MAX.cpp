@@ -1,18 +1,18 @@
-#include "../../core/fbtests/fbtestfixture.h"
+#include "core/fbtests/fbtestfixture.h"
 #include <forte_uint.h>
 #include <forte_bool.h>
 #ifdef FORTE_ENABLE_GENERATED_SOURCE_CPP
-#include "D_5States_5Algo_tester_gen.cpp"
+#include "D_5States_5Algo_ServiceSeq_MAX_gen.cpp"
 #endif
 
 struct D_5States_5Algo_TestFixture : public CFBTestFixtureBase {
 D_5States_5Algo_TestFixture() : 
-CFBTestFixtureBase(g_nStringIdD_5States_5Algo) {
+CFBTestFixtureBase(g_nStringIdservSeq__D_5States_5Algo) {
 setInputData({});
 setOutputData({&OutputString});
 CFBTestFixtureBase::setup();
 }
- OutputString;
+ CIEC_STRING OutputString;
 };
 BOOST_FIXTURE_TEST_SUITE(D_5States_5AlgoTEST, D_5States_5Algo_TestFixture)
 BOOST_AUTO_TEST_CASE(ServiceSequence) {
