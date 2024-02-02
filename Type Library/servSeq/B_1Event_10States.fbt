@@ -49,4 +49,6 @@
 			<ECTransition Source="State_10" Destination="START" Condition="1" Comment="" x="1706.6666666666667" y="1986.6666666666667"/>
 		</ECC>
 	</BasicFB>
+	<Service RightInterface="internal_interface" LeftInterface="external" Comment="Basic FB with empty ECC">
+	</Service>
 </FBType>

@@ -13,6 +13,7 @@
 		</EventInputs>
 		<EventOutputs>
 			<Event Name="Algo1" Type="Event" Comment="">
+				<With Var="OutputString"/>
 			</Event>
 		</EventOutputs>
 		<OutputVars>
@@ -51,5 +52,15 @@ END_ALGORITHM
 		</Algorithm>
 	</BasicFB>
 	<Service RightInterface="internal_interface" LeftInterface="external" Comment="Basic FB with empty ECC">
+		<ServiceSequence Name="ServiceSequence" Comment="Coverage: 1.0">
+			<Attribute Name="StartState" Type="STRING" Value="START"/>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+				<OutputPrimitive Interface="external" Event="Algo1" Parameters="OutputString:=STRING#'ALGO1/'; "/>
+				<OutputPrimitive Interface="external" Event="Algo1" Parameters="OutputString:=STRING#'ALGO1/ALGO2/'; "/>
+				<OutputPrimitive Interface="external" Event="Algo1" Parameters="OutputString:=STRING#'ALGO1/ALGO2/ALGO2/'; "/>
+				<OutputPrimitive Interface="external" Event="Algo1" Parameters="OutputString:=STRING#'ALGO1/ALGO2/ALGO2/ALGO1/'; "/>
+			</ServiceTransaction>
+		</ServiceSequence>
 	</Service>
 </FBType>

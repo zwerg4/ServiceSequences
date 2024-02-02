@@ -21,14 +21,19 @@
 		</EventInputs>
 		<EventOutputs>
 			<Event Name="Algo1" Type="Event" Comment="">
+				<With Var="OutputString"/>
 			</Event>
 			<Event Name="Algo2" Type="Event" Comment="">
+				<With Var="OutputString"/>
 			</Event>
 			<Event Name="Algo3" Type="Event" Comment="">
+				<With Var="OutputString"/>
 			</Event>
 			<Event Name="Algo4" Type="Event" Comment="">
+				<With Var="OutputString"/>
 			</Event>
 			<Event Name="Algo5" Type="Event" Comment="">
+				<With Var="OutputString"/>
 			</Event>
 		</EventOutputs>
 		<OutputVars>

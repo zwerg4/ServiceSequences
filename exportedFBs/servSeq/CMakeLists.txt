@@ -4,7 +4,7 @@
 
 forte_add_directory_module()
 
-forte_add_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+#forte_add_include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 # If you want to set your own name independent of storage location you can use
 # forte_add_module("YOUR_MODULE_NAME_HERE" <ON/OFF> "short description of your module")

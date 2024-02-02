@@ -13,6 +13,7 @@
 		</EventInputs>
 		<EventOutputs>
 			<Event Name="Algo1" Type="Event" Comment="">
+				<With Var="OutputString"/>
 			</Event>
 		</EventOutputs>
 		<OutputVars>

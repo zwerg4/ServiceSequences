@@ -15,4 +15,11 @@
 		<nature>org.eclipse.fordiac.ide.systemmanagement.FordiacNature</nature>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Type Library/lib3_4</name>
+			<type>2</type>
+			<locationURI>WORKSPACE_LOC/.lib/lib3_4/typelib</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
