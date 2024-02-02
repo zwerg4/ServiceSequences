@@ -29,11 +29,12 @@ const CStringDictionary::TStringId FORTE_servSeq__G_10Events_5Unused::scmDataOut
 const CStringDictionary::TStringId FORTE_servSeq__G_10Events_5Unused::scmDataOutputTypeIds[] = {g_nStringIdSTRING};
 const TForteInt16 FORTE_servSeq__G_10Events_5Unused::scmEIWithIndexes[] = {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 const CStringDictionary::TStringId FORTE_servSeq__G_10Events_5Unused::scmEventInputNames[] = {g_nStringIdEI1, g_nStringIdEI2, g_nStringIdEI3, g_nStringIdEI4, g_nStringIdEI5, g_nStringIdEI6, g_nStringIdEI7, g_nStringIdEI8, g_nStringIdEI9, g_nStringIdEI10};
-const TForteInt16 FORTE_servSeq__G_10Events_5Unused::scmEOWithIndexes[] = {-1};
+const TDataIOID FORTE_servSeq__G_10Events_5Unused::scmEOWith[] = {0, scmWithListDelimiter};
+const TForteInt16 FORTE_servSeq__G_10Events_5Unused::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_servSeq__G_10Events_5Unused::scmEventOutputNames[] = {g_nStringIdAlgo1};
 const SFBInterfaceSpec FORTE_servSeq__G_10Events_5Unused::scmFBInterfaceSpec = {
   10, scmEventInputNames, nullptr, scmEIWithIndexes,
-  1, scmEventOutputNames, nullptr, scmEOWithIndexes,
+  1, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
   0, nullptr, nullptr,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,
@@ -123,8 +124,15 @@ void FORTE_servSeq__G_10Events_5Unused::readInputData(TEventID) {
   // nothing to do
 }
 
-void FORTE_servSeq__G_10Events_5Unused::writeOutputData(TEventID) {
-  // nothing to do
+void FORTE_servSeq__G_10Events_5Unused::writeOutputData(const TEventID paEIID) {
+  switch(paEIID) {
+    case scmEventAlgo1ID: {
+      writeData(0, var_OutputString, conn_OutputString);
+      break;
+    }
+    default:
+      break;
+  }
 }
 
 CIEC_ANY *FORTE_servSeq__G_10Events_5Unused::getDI(size_t) {

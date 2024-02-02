@@ -38,6 +38,7 @@ class FORTE_servSeq__D_5States_5Algo final : public CBasicFB {
     static const TEventID scmEventAlgo3ID = 2;
     static const TEventID scmEventAlgo4ID = 3;
     static const TEventID scmEventAlgo5ID = 4;
+    static const TDataIOID scmEOWith[];
     static const TForteInt16 scmEOWithIndexes[];
     static const CStringDictionary::TStringId scmEventOutputNames[];
 

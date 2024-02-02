@@ -31,11 +31,12 @@ const CStringDictionary::TStringId FORTE_servSeq__F_2States_2Algo2::scmDataOutpu
 const CStringDictionary::TStringId FORTE_servSeq__F_2States_2Algo2::scmDataOutputTypeIds[] = {g_nStringIdSTRING};
 const TForteInt16 FORTE_servSeq__F_2States_2Algo2::scmEIWithIndexes[] = {-1};
 const CStringDictionary::TStringId FORTE_servSeq__F_2States_2Algo2::scmEventInputNames[] = {g_nStringIdEI1};
-const TForteInt16 FORTE_servSeq__F_2States_2Algo2::scmEOWithIndexes[] = {-1};
+const TDataIOID FORTE_servSeq__F_2States_2Algo2::scmEOWith[] = {0, scmWithListDelimiter};
+const TForteInt16 FORTE_servSeq__F_2States_2Algo2::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_servSeq__F_2States_2Algo2::scmEventOutputNames[] = {g_nStringIdAlgo1};
 const SFBInterfaceSpec FORTE_servSeq__F_2States_2Algo2::scmFBInterfaceSpec = {
   1, scmEventInputNames, nullptr, scmEIWithIndexes,
-  1, scmEventOutputNames, nullptr, scmEOWithIndexes,
+  1, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
   0, nullptr, nullptr,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,
@@ -101,8 +102,15 @@ void FORTE_servSeq__F_2States_2Algo2::readInputData(TEventID) {
   // nothing to do
 }
 
-void FORTE_servSeq__F_2States_2Algo2::writeOutputData(TEventID) {
-  // nothing to do
+void FORTE_servSeq__F_2States_2Algo2::writeOutputData(const TEventID paEIID) {
+  switch(paEIID) {
+    case scmEventAlgo1ID: {
+      writeData(0, var_OutputString, conn_OutputString);
+      break;
+    }
+    default:
+      break;
+  }
 }
 
 CIEC_ANY *FORTE_servSeq__F_2States_2Algo2::getDI(size_t) {

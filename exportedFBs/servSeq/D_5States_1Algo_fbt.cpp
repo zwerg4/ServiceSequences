@@ -31,11 +31,12 @@ const CStringDictionary::TStringId FORTE_servSeq__D_5States_1Algo::scmDataOutput
 const CStringDictionary::TStringId FORTE_servSeq__D_5States_1Algo::scmDataOutputTypeIds[] = {g_nStringIdSTRING};
 const TForteInt16 FORTE_servSeq__D_5States_1Algo::scmEIWithIndexes[] = {-1, -1, -1, -1, -1};
 const CStringDictionary::TStringId FORTE_servSeq__D_5States_1Algo::scmEventInputNames[] = {g_nStringIdEI1, g_nStringIdEI2, g_nStringIdEI3, g_nStringIdEI4, g_nStringIdPrintHelloWorld};
-const TForteInt16 FORTE_servSeq__D_5States_1Algo::scmEOWithIndexes[] = {-1};
+const TDataIOID FORTE_servSeq__D_5States_1Algo::scmEOWith[] = {0, scmWithListDelimiter};
+const TForteInt16 FORTE_servSeq__D_5States_1Algo::scmEOWithIndexes[] = {0};
 const CStringDictionary::TStringId FORTE_servSeq__D_5States_1Algo::scmEventOutputNames[] = {g_nStringIdAlgo1};
 const SFBInterfaceSpec FORTE_servSeq__D_5States_1Algo::scmFBInterfaceSpec = {
   5, scmEventInputNames, nullptr, scmEIWithIndexes,
-  1, scmEventOutputNames, nullptr, scmEOWithIndexes,
+  1, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
   0, nullptr, nullptr,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,
@@ -127,8 +128,15 @@ void FORTE_servSeq__D_5States_1Algo::readInputData(TEventID) {
   // nothing to do
 }
 
-void FORTE_servSeq__D_5States_1Algo::writeOutputData(TEventID) {
-  // nothing to do
+void FORTE_servSeq__D_5States_1Algo::writeOutputData(const TEventID paEIID) {
+  switch(paEIID) {
+    case scmEventAlgo1ID: {
+      writeData(0, var_OutputString, conn_OutputString);
+      break;
+    }
+    default:
+      break;
+  }
 }
 
 CIEC_ANY *FORTE_servSeq__D_5States_1Algo::getDI(size_t) {

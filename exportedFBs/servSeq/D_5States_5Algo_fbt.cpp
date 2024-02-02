@@ -31,11 +31,12 @@ const CStringDictionary::TStringId FORTE_servSeq__D_5States_5Algo::scmDataOutput
 const CStringDictionary::TStringId FORTE_servSeq__D_5States_5Algo::scmDataOutputTypeIds[] = {g_nStringIdSTRING};
 const TForteInt16 FORTE_servSeq__D_5States_5Algo::scmEIWithIndexes[] = {-1, -1, -1, -1, -1};
 const CStringDictionary::TStringId FORTE_servSeq__D_5States_5Algo::scmEventInputNames[] = {g_nStringIdEI1, g_nStringIdEI2, g_nStringIdEI3, g_nStringIdEI4, g_nStringIdEI5};
-const TForteInt16 FORTE_servSeq__D_5States_5Algo::scmEOWithIndexes[] = {-1, -1, -1, -1, -1};
+const TDataIOID FORTE_servSeq__D_5States_5Algo::scmEOWith[] = {0, scmWithListDelimiter, 0, scmWithListDelimiter, 0, scmWithListDelimiter, 0, scmWithListDelimiter, 0, scmWithListDelimiter};
+const TForteInt16 FORTE_servSeq__D_5States_5Algo::scmEOWithIndexes[] = {0, 2, 4, 6, 8};
 const CStringDictionary::TStringId FORTE_servSeq__D_5States_5Algo::scmEventOutputNames[] = {g_nStringIdAlgo1, g_nStringIdAlgo2, g_nStringIdAlgo3, g_nStringIdAlgo4, g_nStringIdAlgo5};
 const SFBInterfaceSpec FORTE_servSeq__D_5States_5Algo::scmFBInterfaceSpec = {
   5, scmEventInputNames, nullptr, scmEIWithIndexes,
-  5, scmEventOutputNames, nullptr, scmEOWithIndexes,
+  5, scmEventOutputNames, scmEOWith, scmEOWithIndexes,
   0, nullptr, nullptr,
   1, scmDataOutputNames, scmDataOutputTypeIds,
   0, nullptr,
@@ -139,8 +140,31 @@ void FORTE_servSeq__D_5States_5Algo::readInputData(TEventID) {
   // nothing to do
 }
 
-void FORTE_servSeq__D_5States_5Algo::writeOutputData(TEventID) {
-  // nothing to do
+void FORTE_servSeq__D_5States_5Algo::writeOutputData(const TEventID paEIID) {
+  switch(paEIID) {
+    case scmEventAlgo1ID: {
+      writeData(0, var_OutputString, conn_OutputString);
+      break;
+    }
+    case scmEventAlgo2ID: {
+      writeData(0, var_OutputString, conn_OutputString);
+      break;
+    }
+    case scmEventAlgo3ID: {
+      writeData(0, var_OutputString, conn_OutputString);
+      break;
+    }
+    case scmEventAlgo4ID: {
+      writeData(0, var_OutputString, conn_OutputString);
+      break;
+    }
+    case scmEventAlgo5ID: {
+      writeData(0, var_OutputString, conn_OutputString);
+      break;
+    }
+    default:
+      break;
+  }
 }
 
 CIEC_ANY *FORTE_servSeq__D_5States_5Algo::getDI(size_t) {

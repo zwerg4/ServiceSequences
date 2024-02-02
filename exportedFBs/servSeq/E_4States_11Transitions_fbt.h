@@ -34,6 +34,7 @@ class FORTE_servSeq__E_4States_11Transitions final : public CBasicFB {
     static const TForteInt16 scmEIWithIndexes[];
     static const CStringDictionary::TStringId scmEventInputNames[];
     static const TEventID scmEventAlgo1ID = 0;
+    static const TDataIOID scmEOWith[];
     static const TForteInt16 scmEOWithIndexes[];
     static const CStringDictionary::TStringId scmEventOutputNames[];
 

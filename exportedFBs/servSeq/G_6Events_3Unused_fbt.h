@@ -3,7 +3,7 @@
  ***
  *** This file was generated using the 4DIAC FORTE Export Filter V1.0.x NG!
  ***
- *** Name: F_1States_2Algo
+ *** Name: G_6Events_3Unused
  *** Description: Basic FB with empty ECC
  *** Version:
  ***     1.0: 2023-09-22/AK124910 -  -
@@ -20,13 +20,18 @@
 #include "forte_array_variable.h"
 
 
-class FORTE_servSeq__F_1States_2Algo final : public CBasicFB {
-  DECLARE_FIRMWARE_FB(FORTE_servSeq__F_1States_2Algo)
+class FORTE_servSeq__G_6Events_3Unused final : public CBasicFB {
+  DECLARE_FIRMWARE_FB(FORTE_servSeq__G_6Events_3Unused)
 
   private:
     static const CStringDictionary::TStringId scmDataOutputNames[];
     static const CStringDictionary::TStringId scmDataOutputTypeIds[];
     static const TEventID scmEventEI1ID = 0;
+    static const TEventID scmEventEI2ID = 1;
+    static const TEventID scmEventEI3ID = 2;
+    static const TEventID scmEventEI4ID = 3;
+    static const TEventID scmEventEI5ID = 4;
+    static const TEventID scmEventEI6ID = 5;
     static const TForteInt16 scmEIWithIndexes[];
     static const CStringDictionary::TStringId scmEventInputNames[];
     static const TEventID scmEventAlgo1ID = 0;
@@ -38,16 +43,15 @@ class FORTE_servSeq__F_1States_2Algo final : public CBasicFB {
 
     CIEC_ANY *getVarInternal(size_t) override;
 
-    void alg_ALGO1(void);
-    void alg_ALGO2(void);
-
     static const TForteInt16 scmStateSTART = 0;
     static const TForteInt16 scmStateState_1 = 1;
-    static const TForteInt16 scmStateState = 2;
+    static const TForteInt16 scmStateState_2 = 2;
+    static const TForteInt16 scmStateState_3 = 3;
 
     void enterStateSTART(CEventChainExecutionThread *const paECET);
     void enterStateState_1(CEventChainExecutionThread *const paECET);
-    void enterStateState(CEventChainExecutionThread *const paECET);
+    void enterStateState_2(CEventChainExecutionThread *const paECET);
+    void enterStateState_3(CEventChainExecutionThread *const paECET);
 
     void executeEvent(TEventID paEIID, CEventChainExecutionThread *const paECET) override;
 
@@ -56,7 +60,7 @@ class FORTE_servSeq__F_1States_2Algo final : public CBasicFB {
     void setInitialValues() override;
 
   public:
-    FORTE_servSeq__F_1States_2Algo(CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer);
+    FORTE_servSeq__G_6Events_3Unused(CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &paContainer);
 
     CIEC_STRING var_OutputString;
 
@@ -74,6 +78,31 @@ class FORTE_servSeq__F_1States_2Algo final : public CBasicFB {
 
     void evt_EI1(CIEC_STRING &paOutputString) {
       executeEvent(scmEventEI1ID, nullptr);
+      paOutputString = var_OutputString;
+    }
+
+    void evt_EI2(CIEC_STRING &paOutputString) {
+      executeEvent(scmEventEI2ID, nullptr);
+      paOutputString = var_OutputString;
+    }
+
+    void evt_EI3(CIEC_STRING &paOutputString) {
+      executeEvent(scmEventEI3ID, nullptr);
+      paOutputString = var_OutputString;
+    }
+
+    void evt_EI4(CIEC_STRING &paOutputString) {
+      executeEvent(scmEventEI4ID, nullptr);
+      paOutputString = var_OutputString;
+    }
+
+    void evt_EI5(CIEC_STRING &paOutputString) {
+      executeEvent(scmEventEI5ID, nullptr);
+      paOutputString = var_OutputString;
+    }
+
+    void evt_EI6(CIEC_STRING &paOutputString) {
+      executeEvent(scmEventEI6ID, nullptr);
       paOutputString = var_OutputString;
     }
 
