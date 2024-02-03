@@ -1,0 +1,1005 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - core/cominfra/fbdkasn1layer.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">core/cominfra</a> - fbdkasn1layer.cpp<span style="font-size: 80%;"> (source / <a href="fbdkasn1layer.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">481</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2024-02-03 18:09:15</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">29</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">281</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /*******************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  * Copyright (c) 2010-2013 TU Wien ACIN, Profactor GmbH, nxtControl GmbH</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  *               2023 Martin Erich Jobst</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  *</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * This program and the accompanying materials are made available under the</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  * terms of the Eclipse Public License 2.0 which is available at</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * http://www.eclipse.org/legal/epl-2.0.</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * SPDX-License-Identifier: EPL-2.0</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  * Contributors:</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    Alois Zoitl, Ingo Hegny, Michael Hofmann, Stanislav Meduna,</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *    Martin Melik Merkumians</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             :  *      - initial implementation, rework communication infrastructure, bug fixes</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             :  *    Martin Jobst - account for new FB layout and varying data type size</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             :  *******************************************************************************/</span>
+<span id="L17"><span class="lineNum">      17</span>                 :             : #include &quot;fbdkasn1layer.h&quot;</span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : #include &quot;basecommfb.h&quot;</span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : #include &quot;../../arch/timerha.h&quot;</span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : #include &quot;../../arch/devlog.h&quot;</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : #include &lt;fortenew.h&gt;</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             : </span>
+<span id="L23"><span class="lineNum">      23</span>                 :             : using namespace forte::com_infra;</span>
+<span id="L24"><span class="lineNum">      24</span>                 :             : </span>
+<span id="L25"><span class="lineNum">      25</span>                 :             : const std::set&lt;CIEC_ANY::EDataTypeID&gt; CFBDKASN1ComLayer::scmSimpleEncodableDataTypes{</span>
+<span id="L26"><span class="lineNum">      26</span>                 :             :     CIEC_ANY::e_SINT,</span>
+<span id="L27"><span class="lineNum">      27</span>                 :             :     CIEC_ANY::e_INT,</span>
+<span id="L28"><span class="lineNum">      28</span>                 :             :     CIEC_ANY::e_DINT,</span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :     CIEC_ANY::e_LINT,</span>
+<span id="L30"><span class="lineNum">      30</span>                 :             :     CIEC_ANY::e_USINT,</span>
+<span id="L31"><span class="lineNum">      31</span>                 :             :     CIEC_ANY::e_UINT,</span>
+<span id="L32"><span class="lineNum">      32</span>                 :             :     CIEC_ANY::e_UDINT,</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             :     CIEC_ANY::e_ULINT,</span>
+<span id="L34"><span class="lineNum">      34</span>                 :             :     CIEC_ANY::e_BYTE,</span>
+<span id="L35"><span class="lineNum">      35</span>                 :             :     CIEC_ANY::e_WORD,</span>
+<span id="L36"><span class="lineNum">      36</span>                 :             :     CIEC_ANY::e_DWORD,</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             :     CIEC_ANY::e_LWORD,</span>
+<span id="L38"><span class="lineNum">      38</span>                 :             :     CIEC_ANY::e_DATE,</span>
+<span id="L39"><span class="lineNum">      39</span>                 :             :     CIEC_ANY::e_TIME_OF_DAY,</span>
+<span id="L40"><span class="lineNum">      40</span>                 :             :     CIEC_ANY::e_DATE_AND_TIME,</span>
+<span id="L41"><span class="lineNum">      41</span>                 :             :     CIEC_ANY::e_CHAR,</span>
+<span id="L42"><span class="lineNum">      42</span>                 :             :     CIEC_ANY::e_WCHAR,</span>
+<span id="L43"><span class="lineNum">      43</span>                 :             :     CIEC_ANY::e_LDATE,</span>
+<span id="L44"><span class="lineNum">      44</span>                 :             :     CIEC_ANY::e_LTIME_OF_DAY,</span>
+<span id="L45"><span class="lineNum">      45</span>                 :             :     CIEC_ANY::e_LDATE_AND_TIME,</span>
+<span id="L46"><span class="lineNum">      46</span>                 :             :     CIEC_ANY::e_REAL,</span>
+<span id="L47"><span class="lineNum">      47</span>                 :             :     CIEC_ANY::e_LREAL};</span>
+<span id="L48"><span class="lineNum">      48</span>                 :             : </span>
+<span id="L49"><span class="lineNum">      49</span>                 :<span class="tlaUNC tlaBgUNC">           0 : CFBDKASN1ComLayer::CFBDKASN1ComLayer(CComLayer* paUpperLayer, CBaseCommFB * paComFB) :</span></span>
+<span id="L50"><span class="lineNum">      50</span>                 :<span class="tlaUNC">           0 :   CComLayer(paUpperLayer, paComFB), mStatSerBuf(nullptr), mStatSerBufSize(0), mDeserBuf(nullptr), mDeserBufSize(0), mDeserBufPos(0), mDIPos(0), mDOPos(0){</span></span>
+<span id="L51"><span class="lineNum">      51</span>                 :             : </span>
+<span id="L52"><span class="lineNum">      52</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(nullptr != paComFB){</span></span>
+<span id="L53"><span class="lineNum">      53</span>                 :<span class="tlaUNC">           0 :     TPortId sdNum = paComFB-&gt;getNumSD();</span></span>
+<span id="L54"><span class="lineNum">      54</span>                 :<span class="tlaUNC">           0 :     CIEC_ANY **apoSDs = paComFB-&gt;getSDs();</span></span>
+<span id="L55"><span class="lineNum">      55</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     for(TPortId i = 0; i &lt; sdNum; ++i){</span></span>
+<span id="L56"><span class="lineNum">      56</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(apoSDs[i] != nullptr){</span></span>
+<span id="L57"><span class="lineNum">      57</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         TForteByte typeSize = csmDataTags[apoSDs[i]-&gt;unwrap().getDataTypeID()][1];</span></span>
+<span id="L58"><span class="lineNum">      58</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if(typeSize != 255){</span></span>
+<span id="L59"><span class="lineNum">      59</span>                 :<span class="tlaUNC">           0 :           mStatSerBufSize += typeSize + 1;</span></span>
+<span id="L60"><span class="lineNum">      60</span>                 :             :         }</span>
+<span id="L61"><span class="lineNum">      61</span>                 :             :       }</span>
+<span id="L62"><span class="lineNum">      62</span>                 :             :     }</span>
+<span id="L63"><span class="lineNum">      63</span>                 :             : </span>
+<span id="L64"><span class="lineNum">      64</span>                 :<span class="tlaUNC">           0 :     TPortId rdNum = paComFB-&gt;getNumRD();</span></span>
+<span id="L65"><span class="lineNum">      65</span>                 :<span class="tlaUNC">           0 :     CIEC_ANY **apoRDs = paComFB-&gt;getRDs();</span></span>
+<span id="L66"><span class="lineNum">      66</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     for(TPortId i = 0; i &lt; rdNum; ++i){</span></span>
+<span id="L67"><span class="lineNum">      67</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(nullptr != apoRDs[i]){</span></span>
+<span id="L68"><span class="lineNum">      68</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         TForteByte typeSize = csmDataTags[apoRDs[i]-&gt;unwrap().getDataTypeID()][1];</span></span>
+<span id="L69"><span class="lineNum">      69</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if(typeSize != 255){</span></span>
+<span id="L70"><span class="lineNum">      70</span>                 :<span class="tlaUNC">           0 :           mDeserBufSize += typeSize + 1;</span></span>
+<span id="L71"><span class="lineNum">      71</span>                 :             :         }</span>
+<span id="L72"><span class="lineNum">      72</span>                 :             :       }</span>
+<span id="L73"><span class="lineNum">      73</span>                 :             :     }</span>
+<span id="L74"><span class="lineNum">      74</span>                 :             : </span>
+<span id="L75"><span class="lineNum">      75</span>                 :<span class="tlaUNC">           0 :     mStatSerBuf = new TForteByte[mStatSerBufSize];</span></span>
+<span id="L76"><span class="lineNum">      76</span>                 :<span class="tlaUNC">           0 :     mDeserBuf = new TForteByte[mDeserBufSize];</span></span>
+<span id="L77"><span class="lineNum">      77</span>                 :             :   }</span>
+<span id="L78"><span class="lineNum">      78</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L79"><span class="lineNum">      79</span>                 :             : </span>
+<span id="L80"><span class="lineNum">      80</span>                 :<span class="tlaUNC">           0 : CFBDKASN1ComLayer::~CFBDKASN1ComLayer(){</span></span>
+<span id="L81"><span class="lineNum">      81</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   delete[] mStatSerBuf;</span></span>
+<span id="L82"><span class="lineNum">      82</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   delete[] mDeserBuf;</span></span>
+<span id="L83"><span class="lineNum">      83</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L84"><span class="lineNum">      84</span>                 :             : </span>
+<span id="L85"><span class="lineNum">      85</span>                 :<span class="tlaUNC">           0 : EComResponse CFBDKASN1ComLayer::openConnection(char *){</span></span>
+<span id="L86"><span class="lineNum">      86</span>                 :             :   //We don't need layer specific parameters</span>
+<span id="L87"><span class="lineNum">      87</span>                 :<span class="tlaUNC">           0 :   return e_InitOk;</span></span>
+<span id="L88"><span class="lineNum">      88</span>                 :             : }</span>
+<span id="L89"><span class="lineNum">      89</span>                 :             : </span>
+<span id="L90"><span class="lineNum">      90</span>                 :<span class="tlaUNC">           0 : void CFBDKASN1ComLayer::closeConnection(){</span></span>
+<span id="L91"><span class="lineNum">      91</span>                 :             :   //We don't need to do anything specific on closing</span>
+<span id="L92"><span class="lineNum">      92</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L93"><span class="lineNum">      93</span>                 :             : </span>
+<span id="L94"><span class="lineNum">      94</span>                 :<span class="tlaUNC">           0 : void CFBDKASN1ComLayer::resizeDeserBuffer(unsigned int pa_size){</span></span>
+<span id="L95"><span class="lineNum">      95</span>                 :             :   //FIXME use realloc here</span>
+<span id="L96"><span class="lineNum">      96</span>                 :<span class="tlaUNC">           0 :   TForteByte *newBuf = new TForteByte[pa_size];</span></span>
+<span id="L97"><span class="lineNum">      97</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   for(unsigned int i = 0; i &lt; mDeserBufPos; i++){</span></span>
+<span id="L98"><span class="lineNum">      98</span>                 :<span class="tlaUNC">           0 :     newBuf[i] = mDeserBuf[i];</span></span>
+<span id="L99"><span class="lineNum">      99</span>                 :             :   }</span>
+<span id="L100"><span class="lineNum">     100</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   delete[] mDeserBuf;</span></span>
+<span id="L101"><span class="lineNum">     101</span>                 :<span class="tlaUNC">           0 :   mDeserBuf = newBuf;</span></span>
+<span id="L102"><span class="lineNum">     102</span>                 :<span class="tlaUNC">           0 :   mDeserBufSize = pa_size;</span></span>
+<span id="L103"><span class="lineNum">     103</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L104"><span class="lineNum">     104</span>                 :             : </span>
+<span id="L105"><span class="lineNum">     105</span>                 :<span class="tlaUNC">           0 : EComResponse CFBDKASN1ComLayer::sendData(void *paData, unsigned int paSize){</span></span>
+<span id="L106"><span class="lineNum">     106</span>                 :<span class="tlaUNC">           0 :   EComResponse eRetVal = e_ProcessDataNoSocket;</span></span>
+<span id="L107"><span class="lineNum">     107</span>                 :             : </span>
+<span id="L108"><span class="lineNum">     108</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(mBottomLayer != nullptr){</span></span>
+<span id="L109"><span class="lineNum">     109</span>                 :<span class="tlaUNC">           0 :     const CIEC_ANY **apoSDs = static_cast&lt;const CIEC_ANY **&gt;(paData);</span></span>
+<span id="L110"><span class="lineNum">     110</span>                 :<span class="tlaUNC">           0 :     size_t unNeededBufferSize = 0;</span></span>
+<span id="L111"><span class="lineNum">     111</span>                 :             : </span>
+<span id="L112"><span class="lineNum">     112</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(nullptr == apoSDs){</span></span>
+<span id="L113"><span class="lineNum">     113</span>                 :<span class="tlaUNC">           0 :        return e_ProcessDataDataTypeError;</span></span>
+<span id="L114"><span class="lineNum">     114</span>                 :             :      }</span>
+<span id="L115"><span class="lineNum">     115</span>                 :             : </span>
+<span id="L116"><span class="lineNum">     116</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     for(size_t i = 0; i &lt; paSize; ++i){</span></span>
+<span id="L117"><span class="lineNum">     117</span>                 :<span class="tlaUNC">           0 :       unNeededBufferSize += getRequiredSerializationSize(*apoSDs[i]);</span></span>
+<span id="L118"><span class="lineNum">     118</span>                 :             :     }</span>
+<span id="L119"><span class="lineNum">     119</span>                 :<span class="tlaUNC">           0 :     TForteByte *paUsedBuffer = nullptr;</span></span>
+<span id="L120"><span class="lineNum">     120</span>                 :<span class="tlaUNC">           0 :     TForteByte *paDynSerBuffer = nullptr;</span></span>
+<span id="L121"><span class="lineNum">     121</span>                 :             :     //FIXME grow buffer instead of allocating every time a new one</span>
+<span id="L122"><span class="lineNum">     122</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(unNeededBufferSize &lt;= mStatSerBufSize){</span></span>
+<span id="L123"><span class="lineNum">     123</span>                 :<span class="tlaUNC">           0 :       paUsedBuffer = mStatSerBuf;</span></span>
+<span id="L124"><span class="lineNum">     124</span>                 :             :     }</span>
+<span id="L125"><span class="lineNum">     125</span>                 :             :     else{</span>
+<span id="L126"><span class="lineNum">     126</span>                 :<span class="tlaUNC">           0 :        paDynSerBuffer = new TForteByte[unNeededBufferSize];</span></span>
+<span id="L127"><span class="lineNum">     127</span>                 :<span class="tlaUNC">           0 :        paUsedBuffer = paDynSerBuffer;</span></span>
+<span id="L128"><span class="lineNum">     128</span>                 :             :     }</span>
+<span id="L129"><span class="lineNum">     129</span>                 :             : </span>
+<span id="L130"><span class="lineNum">     130</span>                 :<span class="tlaUNC">           0 :     int ser_size = -1; //stays negative if no Buffer for serialization is provided or error occurs while serialization</span></span>
+<span id="L131"><span class="lineNum">     131</span>                 :             : </span>
+<span id="L132"><span class="lineNum">     132</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (nullptr != paUsedBuffer) {</span></span>
+<span id="L133"><span class="lineNum">     133</span>                 :<span class="tlaUNC">           0 :       ser_size = serializeDataPointArray(paUsedBuffer, unNeededBufferSize, apoSDs, paSize);</span></span>
+<span id="L134"><span class="lineNum">     134</span>                 :             :     }</span>
+<span id="L135"><span class="lineNum">     135</span>                 :             : </span>
+<span id="L136"><span class="lineNum">     136</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(ser_size &gt; 0){</span></span>
+<span id="L137"><span class="lineNum">     137</span>                 :<span class="tlaUNC">           0 :       eRetVal = mBottomLayer-&gt;sendData(paUsedBuffer, ser_size);</span></span>
+<span id="L138"><span class="lineNum">     138</span>                 :             :     }</span>
+<span id="L139"><span class="lineNum">     139</span>                 :             :     else{ // serialize failed</span>
+<span id="L140"><span class="lineNum">     140</span>                 :<span class="tlaUNC">           0 :       eRetVal = e_ProcessDataDataTypeError;</span></span>
+<span id="L141"><span class="lineNum">     141</span>                 :<span class="tlaUNC">           0 :       DEVLOG_ERROR(&quot;CAsn1Layer:: serializeData failed\n&quot;);</span></span>
+<span id="L142"><span class="lineNum">     142</span>                 :             :     }</span>
+<span id="L143"><span class="lineNum">     143</span>                 :             : </span>
+<span id="L144"><span class="lineNum">     144</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(nullptr != paDynSerBuffer){</span></span>
+<span id="L145"><span class="lineNum">     145</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       delete[] paDynSerBuffer;</span></span>
+<span id="L146"><span class="lineNum">     146</span>                 :             :     }</span>
+<span id="L147"><span class="lineNum">     147</span>                 :             :   }</span>
+<span id="L148"><span class="lineNum">     148</span>                 :             : </span>
+<span id="L149"><span class="lineNum">     149</span>                 :<span class="tlaUNC">           0 :   return eRetVal;</span></span>
+<span id="L150"><span class="lineNum">     150</span>                 :             : }</span>
+<span id="L151"><span class="lineNum">     151</span>                 :             : </span>
+<span id="L152"><span class="lineNum">     152</span>                 :<span class="tlaUNC">           0 : EComResponse CFBDKASN1ComLayer::recvData(const void *paData, unsigned int paSize){</span></span>
+<span id="L153"><span class="lineNum">     153</span>                 :<span class="tlaUNC">           0 :   TForteByte *receivedData = const_cast&lt;TForteByte*&gt;(static_cast&lt;const TForteByte *&gt;(paData));</span></span>
+<span id="L154"><span class="lineNum">     154</span>                 :<span class="tlaUNC">           0 :   EComResponse eRetVal = e_Nothing;</span></span>
+<span id="L155"><span class="lineNum">     155</span>                 :             : </span>
+<span id="L156"><span class="lineNum">     156</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(mFb != nullptr){</span></span>
+<span id="L157"><span class="lineNum">     157</span>                 :<span class="tlaUNC">           0 :     CIEC_ANY **apoRDs = mFb-&gt;getRDs();</span></span>
+<span id="L158"><span class="lineNum">     158</span>                 :<span class="tlaUNC">           0 :     TPortId unNumRD = mFb-&gt;getNumRD();</span></span>
+<span id="L159"><span class="lineNum">     159</span>                 :<span class="tlaUNC">           0 :     unsigned int usedBufferSize = 0;</span></span>
+<span id="L160"><span class="lineNum">     160</span>                 :<span class="tlaUNC">           0 :     TForteByte *usedBuffer = nullptr;</span></span>
+<span id="L161"><span class="lineNum">     161</span>                 :             : </span>
+<span id="L162"><span class="lineNum">     162</span>                 :             :     // TODO: only copy if necessary</span>
+<span id="L163"><span class="lineNum">     163</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(0 == mDeserBufPos){</span></span>
+<span id="L164"><span class="lineNum">     164</span>                 :<span class="tlaUNC">           0 :       usedBuffer = receivedData;</span></span>
+<span id="L165"><span class="lineNum">     165</span>                 :<span class="tlaUNC">           0 :       usedBufferSize = paSize;</span></span>
+<span id="L166"><span class="lineNum">     166</span>                 :             :     }</span>
+<span id="L167"><span class="lineNum">     167</span>                 :             :     else{</span>
+<span id="L168"><span class="lineNum">     168</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if((paSize + mDeserBufPos) &gt; mDeserBufSize){</span></span>
+<span id="L169"><span class="lineNum">     169</span>                 :<span class="tlaUNC">           0 :         resizeDeserBuffer(paSize + mDeserBufPos);</span></span>
+<span id="L170"><span class="lineNum">     170</span>                 :             :       }</span>
+<span id="L171"><span class="lineNum">     171</span>                 :<span class="tlaUNC">           0 :       memcpy((mDeserBuf + mDeserBufPos), receivedData, paSize);</span></span>
+<span id="L172"><span class="lineNum">     172</span>                 :<span class="tlaUNC">           0 :       usedBuffer = mDeserBuf;</span></span>
+<span id="L173"><span class="lineNum">     173</span>                 :<span class="tlaUNC">           0 :       mDeserBufPos = mDeserBufPos + paSize;</span></span>
+<span id="L174"><span class="lineNum">     174</span>                 :<span class="tlaUNC">           0 :       usedBufferSize = mDeserBufPos;</span></span>
+<span id="L175"><span class="lineNum">     175</span>                 :             :     }</span>
+<span id="L176"><span class="lineNum">     176</span>                 :             :     int nBuf;</span>
+<span id="L177"><span class="lineNum">     177</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     while(usedBufferSize != 0){</span></span>
+<span id="L178"><span class="lineNum">     178</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(unNumRD == 0){</span></span>
+<span id="L179"><span class="lineNum">     179</span>                 :<span class="tlaUNC">           0 :         nBuf = 1;</span></span>
+<span id="L180"><span class="lineNum">     180</span>                 :             :       }</span>
+<span id="L181"><span class="lineNum">     181</span>                 :             :       else{</span>
+<span id="L182"><span class="lineNum">     182</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if(nullptr == apoRDs){</span></span>
+<span id="L183"><span class="lineNum">     183</span>                 :<span class="tlaUNC">           0 :           DEVLOG_ERROR(&quot;Data type error\n&quot;);</span></span>
+<span id="L184"><span class="lineNum">     184</span>                 :<span class="tlaUNC">           0 :           eRetVal = e_ProcessDataDataTypeError;</span></span>
+<span id="L185"><span class="lineNum">     185</span>                 :<span class="tlaUNC">           0 :           break;</span></span>
+<span id="L186"><span class="lineNum">     186</span>                 :             :         }</span>
+<span id="L187"><span class="lineNum">     187</span>                 :<span class="tlaUNC">           0 :         nBuf = deserializeDataPoint(usedBuffer, usedBufferSize, *apoRDs[mDOPos]);</span></span>
+<span id="L188"><span class="lineNum">     188</span>                 :             :       }</span>
+<span id="L189"><span class="lineNum">     189</span>                 :             : </span>
+<span id="L190"><span class="lineNum">     190</span>                 :             :       // deserialize failed, copy data into buffer for next package</span>
+<span id="L191"><span class="lineNum">     191</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(nBuf &lt;= 0){</span></span>
+<span id="L192"><span class="lineNum">     192</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if(-2 == nBuf){</span></span>
+<span id="L193"><span class="lineNum">     193</span>                 :             :           //We had a data type problem</span>
+<span id="L194"><span class="lineNum">     194</span>                 :<span class="tlaUNC">           0 :           eRetVal = e_ProcessDataDataTypeError;</span></span>
+<span id="L195"><span class="lineNum">     195</span>                 :<span class="tlaUNC">           0 :           break;</span></span>
+<span id="L196"><span class="lineNum">     196</span>                 :             :         }</span>
+<span id="L197"><span class="lineNum">     197</span>                 :             :         else{</span>
+<span id="L198"><span class="lineNum">     198</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :           if(0 == mDeserBufPos){ //usedBuffer == recvData</span></span>
+<span id="L199"><span class="lineNum">     199</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :             if((mDeserBufSize) &lt; usedBufferSize){</span></span>
+<span id="L200"><span class="lineNum">     200</span>                 :<span class="tlaUNC">           0 :               resizeDeserBuffer(usedBufferSize);</span></span>
+<span id="L201"><span class="lineNum">     201</span>                 :             :             }</span>
+<span id="L202"><span class="lineNum">     202</span>                 :<span class="tlaUNC">           0 :             memcpy(mDeserBuf, usedBuffer, usedBufferSize);</span></span>
+<span id="L203"><span class="lineNum">     203</span>                 :<span class="tlaUNC">           0 :             mDeserBufPos = usedBufferSize;</span></span>
+<span id="L204"><span class="lineNum">     204</span>                 :             :           }</span>
+<span id="L205"><span class="lineNum">     205</span>                 :<span class="tlaUNC">           0 :           nBuf = usedBufferSize;</span></span>
+<span id="L206"><span class="lineNum">     206</span>                 :             :         }</span>
+<span id="L207"><span class="lineNum">     207</span>                 :             :       }</span>
+<span id="L208"><span class="lineNum">     208</span>                 :             :       else{</span>
+<span id="L209"><span class="lineNum">     209</span>                 :<span class="tlaUNC">           0 :         mDOPos++;</span></span>
+<span id="L210"><span class="lineNum">     210</span>                 :<span class="tlaUNC">           0 :         mDeserBufPos = 0; // TODO: MH: think on this</span></span>
+<span id="L211"><span class="lineNum">     211</span>                 :             :       }</span>
+<span id="L212"><span class="lineNum">     212</span>                 :             : </span>
+<span id="L213"><span class="lineNum">     213</span>                 :<span class="tlaUNC">           0 :       usedBufferSize -= nBuf;</span></span>
+<span id="L214"><span class="lineNum">     214</span>                 :<span class="tlaUNC">           0 :       usedBuffer += nBuf;</span></span>
+<span id="L215"><span class="lineNum">     215</span>                 :             : </span>
+<span id="L216"><span class="lineNum">     216</span>                 :             :       // required if e.g. the first element is an bool and the second element is &quot;fragmented&quot; - otherwise the resize in the buffer will not be resized</span>
+<span id="L217"><span class="lineNum">     217</span>                 :<span class="tlaUNC">           0 :       receivedData += nBuf;</span></span>
+<span id="L218"><span class="lineNum">     218</span>                 :             : </span>
+<span id="L219"><span class="lineNum">     219</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(mDOPos &gt;= unNumRD){</span></span>
+<span id="L220"><span class="lineNum">     220</span>                 :<span class="tlaUNC">           0 :         mDOPos = 0;</span></span>
+<span id="L221"><span class="lineNum">     221</span>                 :<span class="tlaUNC">           0 :         eRetVal = e_ProcessDataOk;</span></span>
+<span id="L222"><span class="lineNum">     222</span>                 :             :         //FIXME if at this point data is left it is from a second run. Better first deliver this packet and afterwards handle second run</span>
+<span id="L223"><span class="lineNum">     223</span>                 :             :       }</span>
+<span id="L224"><span class="lineNum">     224</span>                 :             :     }</span>
+<span id="L225"><span class="lineNum">     225</span>                 :             :   }</span>
+<span id="L226"><span class="lineNum">     226</span>                 :<span class="tlaUNC">           0 :   return eRetVal;</span></span>
+<span id="L227"><span class="lineNum">     227</span>                 :             : }</span>
+<span id="L228"><span class="lineNum">     228</span>                 :             : </span>
+<span id="L229"><span class="lineNum">     229</span>                 :             : /*Initialization csmDataTags array</span>
+<span id="L230"><span class="lineNum">     230</span>                 :             :  *</span>
+<span id="L231"><span class="lineNum">     231</span>                 :             :  */</span>
+<span id="L232"><span class="lineNum">     232</span>                 :             : const TForteByte CFBDKASN1ComLayer::csmDataTags[][2] = {</span>
+<span id="L233"><span class="lineNum">     233</span>                 :             :     //!&lt; {Tag, Size of data + tag size}; Size == 255 means unknown</span>
+<span id="L234"><span class="lineNum">     234</span>                 :             :     // TODO: consider size=0 for unknown</span>
+<span id="L235"><span class="lineNum">     235</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_ANY_TAG, 255},</span>
+<span id="L236"><span class="lineNum">     236</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_BOOL_TAG, 1},</span>
+<span id="L237"><span class="lineNum">     237</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_SINT_TAG, 2},</span>
+<span id="L238"><span class="lineNum">     238</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_INT_TAG, 3},</span>
+<span id="L239"><span class="lineNum">     239</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_DINT_TAG, 5},</span>
+<span id="L240"><span class="lineNum">     240</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_LINT_TAG, 9},</span>
+<span id="L241"><span class="lineNum">     241</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_USINT_TAG, 2},</span>
+<span id="L242"><span class="lineNum">     242</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_UINT_TAG, 3},</span>
+<span id="L243"><span class="lineNum">     243</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_UDINT_TAG, 5},</span>
+<span id="L244"><span class="lineNum">     244</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_ULINT_TAG, 9},</span>
+<span id="L245"><span class="lineNum">     245</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_BYTE_TAG, 2},</span>
+<span id="L246"><span class="lineNum">     246</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_WORD_TAG, 3},</span>
+<span id="L247"><span class="lineNum">     247</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_DWORD_TAG, 5},</span>
+<span id="L248"><span class="lineNum">     248</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_LWORD_TAG, 9},</span>
+<span id="L249"><span class="lineNum">     249</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_DATE_TAG, 9},</span>
+<span id="L250"><span class="lineNum">     250</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_TIME_OF_DAY_TAG, 9},</span>
+<span id="L251"><span class="lineNum">     251</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_DATE_AND_TIME_TAG, 9},</span>
+<span id="L252"><span class="lineNum">     252</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_TIME_TAG, 9},</span>
+<span id="L253"><span class="lineNum">     253</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_CHAR_TAG, 2},</span>
+<span id="L254"><span class="lineNum">     254</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_WCHAR_TAG, 3},</span>
+<span id="L255"><span class="lineNum">     255</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_LDATE_TAG, 9},</span>
+<span id="L256"><span class="lineNum">     256</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_LTIME_OF_DAY_TAG, 9},</span>
+<span id="L257"><span class="lineNum">     257</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_LDATE_AND_TIME_TAG, 9},</span>
+<span id="L258"><span class="lineNum">     258</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_LTIME_TAG, 9},</span>
+<span id="L259"><span class="lineNum">     259</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_REAL_TAG, 5},</span>
+<span id="L260"><span class="lineNum">     260</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_LREAL_TAG, 9},</span>
+<span id="L261"><span class="lineNum">     261</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_STRING_TAG, 255},</span>
+<span id="L262"><span class="lineNum">     262</span>                 :             :     {e_APPLICATION + e_PRIMITIVE + e_WSTRING_TAG, 255},</span>
+<span id="L263"><span class="lineNum">     263</span>                 :             :     {e_APPLICATION + e_CONSTRUCTED + e_DerivedData_TAG, 255},</span>
+<span id="L264"><span class="lineNum">     264</span>                 :             :     {e_APPLICATION + e_CONSTRUCTED + e_DirectlyDerivedData_TAG, 255},</span>
+<span id="L265"><span class="lineNum">     265</span>                 :             :     {e_APPLICATION + e_CONSTRUCTED + e_EnumeratedData_TAG, 255},</span>
+<span id="L266"><span class="lineNum">     266</span>                 :             :     {e_APPLICATION + e_CONSTRUCTED + e_SubrangeData_TAG, 255},</span>
+<span id="L267"><span class="lineNum">     267</span>                 :             :     {e_APPLICATION + e_CONSTRUCTED + e_ARRAY_TAG, 255},</span>
+<span id="L268"><span class="lineNum">     268</span>                 :             :     {e_APPLICATION + e_CONSTRUCTED + e_STRUCT_TAG, 255}};</span>
+<span id="L269"><span class="lineNum">     269</span>                 :             : </span>
+<span id="L270"><span class="lineNum">     270</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::serializeDataPointArray(TForteByte *paBytes, const size_t paStreamSize, const CIEC_ANY**paData, size_t paDataNum){</span></span>
+<span id="L271"><span class="lineNum">     271</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L272"><span class="lineNum">     272</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(0 == paDataNum){</span></span>
+<span id="L273"><span class="lineNum">     273</span>                 :<span class="tlaUNC">           0 :     serializeNull(paBytes);</span></span>
+<span id="L274"><span class="lineNum">     274</span>                 :<span class="tlaUNC">           0 :     nRetVal = 1;</span></span>
+<span id="L275"><span class="lineNum">     275</span>                 :             :   }</span>
+<span id="L276"><span class="lineNum">     276</span>                 :             :   else {</span>
+<span id="L277"><span class="lineNum">     277</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (paStreamSize &gt; std::numeric_limits&lt;int&gt;::max()) {</span></span>
+<span id="L278"><span class="lineNum">     278</span>                 :<span class="tlaUNC">           0 :       DEVLOG_ERROR(&quot;FBDK ASN1 Layer: paStreamSize too big!\n&quot;);</span></span>
+<span id="L279"><span class="lineNum">     279</span>                 :<span class="tlaUNC">           0 :       return -1;</span></span>
+<span id="L280"><span class="lineNum">     280</span>                 :             :     }</span>
+<span id="L281"><span class="lineNum">     281</span>                 :<span class="tlaUNC">           0 :     int nRemainingBytes = static_cast&lt;int&gt;(paStreamSize);</span></span>
+<span id="L282"><span class="lineNum">     282</span>                 :             :     int nBuf;</span>
+<span id="L283"><span class="lineNum">     283</span>                 :<span class="tlaUNC">           0 :     nRetVal = 0;</span></span>
+<span id="L284"><span class="lineNum">     284</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     for(size_t i = 0; i &lt; paDataNum; i++){</span></span>
+<span id="L285"><span class="lineNum">     285</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(nullptr != (paData[i])){</span></span>
+<span id="L286"><span class="lineNum">     286</span>                 :<span class="tlaUNC">           0 :         nBuf = serializeDataPoint(paBytes, nRemainingBytes, *paData[i]);</span></span>
+<span id="L287"><span class="lineNum">     287</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if(0 &lt; nBuf){</span></span>
+<span id="L288"><span class="lineNum">     288</span>                 :<span class="tlaUNC">           0 :           nRetVal += nBuf;</span></span>
+<span id="L289"><span class="lineNum">     289</span>                 :<span class="tlaUNC">           0 :           nRemainingBytes -= nBuf;</span></span>
+<span id="L290"><span class="lineNum">     290</span>                 :<span class="tlaUNC">           0 :           paBytes += nBuf;</span></span>
+<span id="L291"><span class="lineNum">     291</span>                 :             :         }</span>
+<span id="L292"><span class="lineNum">     292</span>                 :             :         else{</span>
+<span id="L293"><span class="lineNum">     293</span>                 :<span class="tlaUNC">           0 :           nRetVal = -1;</span></span>
+<span id="L294"><span class="lineNum">     294</span>                 :<span class="tlaUNC">           0 :           break;</span></span>
+<span id="L295"><span class="lineNum">     295</span>                 :             :         }</span>
+<span id="L296"><span class="lineNum">     296</span>                 :             :       }</span>
+<span id="L297"><span class="lineNum">     297</span>                 :             :       else{</span>
+<span id="L298"><span class="lineNum">     298</span>                 :<span class="tlaUNC">           0 :         nRetVal = -1;</span></span>
+<span id="L299"><span class="lineNum">     299</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L300"><span class="lineNum">     300</span>                 :             :       }</span>
+<span id="L301"><span class="lineNum">     301</span>                 :             :     }</span>
+<span id="L302"><span class="lineNum">     302</span>                 :             :   }</span>
+<span id="L303"><span class="lineNum">     303</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L304"><span class="lineNum">     304</span>                 :             : }</span>
+<span id="L305"><span class="lineNum">     305</span>                 :             : </span>
+<span id="L306"><span class="lineNum">     306</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::serializeDataPoint(TForteByte* paBytes, int paStreamSize, const CIEC_ANY &amp;paCIECData){</span></span>
+<span id="L307"><span class="lineNum">     307</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L308"><span class="lineNum">     308</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(0 &lt; paStreamSize){</span></span>
+<span id="L309"><span class="lineNum">     309</span>                 :<span class="tlaUNC">           0 :     serializeTag(paBytes, paCIECData);</span></span>
+<span id="L310"><span class="lineNum">     310</span>                 :<span class="tlaUNC">           0 :     nRetVal = serializeValue(paBytes + 1, paStreamSize - 1, paCIECData);</span></span>
+<span id="L311"><span class="lineNum">     311</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(0 &lt;= nRetVal){</span></span>
+<span id="L312"><span class="lineNum">     312</span>                 :<span class="tlaUNC">           0 :       ++nRetVal;        //add one for the tag</span></span>
+<span id="L313"><span class="lineNum">     313</span>                 :             :     }</span>
+<span id="L314"><span class="lineNum">     314</span>                 :             :   }</span>
+<span id="L315"><span class="lineNum">     315</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L316"><span class="lineNum">     316</span>                 :             : }</span>
+<span id="L317"><span class="lineNum">     317</span>                 :             : </span>
+<span id="L318"><span class="lineNum">     318</span>                 :<span class="tlaUNC">           0 : void CFBDKASN1ComLayer::serializeTag(TForteByte* paBytes, const CIEC_ANY &amp;paCIECData){</span></span>
+<span id="L319"><span class="lineNum">     319</span>                 :<span class="tlaUNC">           0 :   CIEC_ANY::EDataTypeID eDataType = paCIECData.getDataTypeID();</span></span>
+<span id="L320"><span class="lineNum">     320</span>                 :             : </span>
+<span id="L321"><span class="lineNum">     321</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :   switch(eDataType) {</span></span>
+<span id="L322"><span class="lineNum">     322</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_ANY:</span></span>
+<span id="L323"><span class="lineNum">     323</span>                 :<span class="tlaUNC">           0 :       serializeTag(paBytes, paCIECData.unwrap());</span></span>
+<span id="L324"><span class="lineNum">     324</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L325"><span class="lineNum">     325</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_STRUCT:</span></span>
+<span id="L326"><span class="lineNum">     326</span>                 :             :       //get ASN1-tag from implementing datatype for STRUCT-datatypes</span>
+<span id="L327"><span class="lineNum">     327</span>                 :<span class="tlaUNC">           0 :       paBytes[0] = ((CIEC_STRUCT&amp;) paCIECData).getASN1StructType();</span></span>
+<span id="L328"><span class="lineNum">     328</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L329"><span class="lineNum">     329</span>                 :             : #ifdef FORTE_SUPPORT_CUSTOM_SERIALIZABLE_DATATYPES</span>
+<span id="L330"><span class="lineNum">     330</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_External:</span></span>
+<span id="L331"><span class="lineNum">     331</span>                 :<span class="tlaUNC">           0 :       paBytes[0] = paCIECData.getTag();</span></span>
+<span id="L332"><span class="lineNum">     332</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L333"><span class="lineNum">     333</span>                 :             : #endif /* FORTE_SUPPORT_CUSTOM_SERIALIZABLE_DATATYPES */</span>
+<span id="L334"><span class="lineNum">     334</span>                 :<span class="tlaUNC">           0 :     default:</span></span>
+<span id="L335"><span class="lineNum">     335</span>                 :<span class="tlaUNC">           0 :       paBytes[0] = csmDataTags[eDataType][0];</span></span>
+<span id="L336"><span class="lineNum">     336</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L337"><span class="lineNum">     337</span>                 :             :   }</span>
+<span id="L338"><span class="lineNum">     338</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L339"><span class="lineNum">     339</span>                 :             : </span>
+<span id="L340"><span class="lineNum">     340</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::serializeValue(TForteByte* paBytes, int paStreamSize, const CIEC_ANY &amp;paCIECData){</span></span>
+<span id="L341"><span class="lineNum">     341</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L342"><span class="lineNum">     342</span>                 :             : </span>
+<span id="L343"><span class="lineNum">     343</span>                 :<span class="tlaUNC">           0 :   CIEC_ANY::EDataTypeID eDataType = paCIECData.getDataTypeID();</span></span>
+<span id="L344"><span class="lineNum">     344</span>                 :             : </span>
+<span id="L345"><span class="lineNum">     345</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :   if((CIEC_ANY::e_BOOL &lt; eDataType &amp;&amp; eDataType &lt;= CIEC_ANY::e_DATE_AND_TIME)||(CIEC_ANY::e_REAL == eDataType)||(CIEC_ANY::e_LREAL == eDataType)){</span></span>
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span>]
+<span id="L346"><span class="lineNum">     346</span>                 :             :     //Simple data types except bool can be handled the same way</span>
+<span id="L347"><span class="lineNum">     347</span>                 :<span class="tlaUNC">           0 :     nRetVal = serializeValueSimpleDataType(paBytes, paStreamSize, paCIECData);</span></span>
+<span id="L348"><span class="lineNum">     348</span>                 :             :   }</span>
+<span id="L349"><span class="lineNum">     349</span>                 :             :   else{</span>
+<span id="L350"><span class="lineNum">     350</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     switch (eDataType){</span></span>
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 8 was not executed"> # </span>]
+<span id="L351"><span class="lineNum">     351</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_ANY:</span></span>
+<span id="L352"><span class="lineNum">     352</span>                 :<span class="tlaUNC">           0 :         nRetVal = serializeValue(paBytes, paStreamSize, paCIECData.unwrap());</span></span>
+<span id="L353"><span class="lineNum">     353</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L354"><span class="lineNum">     354</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_BOOL:</span></span>
+<span id="L355"><span class="lineNum">     355</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if(!((CIEC_BOOL &amp;) paCIECData).operator bool()){</span></span>
+<span id="L356"><span class="lineNum">     356</span>                 :             :           //data of bool is encoded in the tag; if CIEC_BOOL == false =&gt; Tag must be e_APPLICATION + e_PRIMITIVE</span>
+<span id="L357"><span class="lineNum">     357</span>                 :<span class="tlaUNC">           0 :           paBytes[-1] = static_cast&lt;TForteByte&gt;(paBytes[-1] - static_cast&lt;TForteByte&gt;(e_BOOL_TAG));</span></span>
+<span id="L358"><span class="lineNum">     358</span>                 :             :         }</span>
+<span id="L359"><span class="lineNum">     359</span>                 :<span class="tlaUNC">           0 :         nRetVal = 0;</span></span>
+<span id="L360"><span class="lineNum">     360</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L361"><span class="lineNum">     361</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_TIME:</span></span>
+<span id="L362"><span class="lineNum">     362</span>                 :<span class="tlaUNC">           0 :         nRetVal = serializeValueTime(paBytes, paStreamSize, static_cast&lt;const CIEC_TIME &amp;&gt;(paCIECData));</span></span>
+<span id="L363"><span class="lineNum">     363</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L364"><span class="lineNum">     364</span>                 :             : #ifdef FORTE_USE_WSTRING_DATATYPE</span>
+<span id="L365"><span class="lineNum">     365</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_WSTRING:</span></span>
+<span id="L366"><span class="lineNum">     366</span>                 :<span class="tlaUNC">           0 :         nRetVal = serializeValueWString(paBytes, paStreamSize, static_cast&lt;const CIEC_WSTRING &amp;&gt;(paCIECData));</span></span>
+<span id="L367"><span class="lineNum">     367</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L368"><span class="lineNum">     368</span>                 :             : #endif</span>
+<span id="L369"><span class="lineNum">     369</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_STRING:</span></span>
+<span id="L370"><span class="lineNum">     370</span>                 :<span class="tlaUNC">           0 :         nRetVal = serializeValueString(paBytes, paStreamSize, static_cast&lt;const CIEC_STRING &amp;&gt;(paCIECData));</span></span>
+<span id="L371"><span class="lineNum">     371</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L372"><span class="lineNum">     372</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_ARRAY:</span></span>
+<span id="L373"><span class="lineNum">     373</span>                 :<span class="tlaUNC">           0 :         nRetVal = serializeArray(paBytes, paStreamSize, static_cast&lt;const CIEC_ARRAY &amp;&gt;(paCIECData));</span></span>
+<span id="L374"><span class="lineNum">     374</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L375"><span class="lineNum">     375</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_STRUCT:</span></span>
+<span id="L376"><span class="lineNum">     376</span>                 :<span class="tlaUNC">           0 :         nRetVal = serializeValueStruct(paBytes, paStreamSize, static_cast&lt;const CIEC_STRUCT &amp;&gt;(paCIECData));</span></span>
+<span id="L377"><span class="lineNum">     377</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L378"><span class="lineNum">     378</span>                 :             : #ifdef FORTE_SUPPORT_CUSTOM_SERIALIZABLE_DATATYPES</span>
+<span id="L379"><span class="lineNum">     379</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_External:</span></span>
+<span id="L380"><span class="lineNum">     380</span>                 :<span class="tlaUNC">           0 :         nRetVal = paCIECData.serializeCustomType(paBytes, paStreamSize);</span></span>
+<span id="L381"><span class="lineNum">     381</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L382"><span class="lineNum">     382</span>                 :             : #endif /* FORTE_SUPPORT_CUSTOM_SERIALIZABLE_DATATYPES */</span>
+<span id="L383"><span class="lineNum">     383</span>                 :             : </span>
+<span id="L384"><span class="lineNum">     384</span>                 :<span class="tlaUNC">           0 :       default:</span></span>
+<span id="L385"><span class="lineNum">     385</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L386"><span class="lineNum">     386</span>                 :             :     }</span>
+<span id="L387"><span class="lineNum">     387</span>                 :             :   }</span>
+<span id="L388"><span class="lineNum">     388</span>                 :             : </span>
+<span id="L389"><span class="lineNum">     389</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L390"><span class="lineNum">     390</span>                 :             : }</span>
+<span id="L391"><span class="lineNum">     391</span>                 :             : </span>
+<span id="L392"><span class="lineNum">     392</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::serializeValueSimpleDataType(TForteByte* paBytes, int paStreamSize, const CIEC_ANY &amp; paDataPoint){</span></span>
+<span id="L393"><span class="lineNum">     393</span>                 :<span class="tlaUNC">           0 :   int nRetVal = csmDataTags[paDataPoint.getDataTypeID()][1];</span></span>
+<span id="L394"><span class="lineNum">     394</span>                 :<span class="tlaUNC">           0 :   --nRetVal; //Length of the tag</span></span>
+<span id="L395"><span class="lineNum">     395</span>                 :             : </span>
+<span id="L396"><span class="lineNum">     396</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(nRetVal &lt;= paStreamSize){</span></span>
+<span id="L397"><span class="lineNum">     397</span>                 :<span class="tlaUNC">           0 :     const TForteByte* acDataPtr = paDataPoint.getConstDataPtr();</span></span>
+<span id="L398"><span class="lineNum">     398</span>                 :             : </span>
+<span id="L399"><span class="lineNum">     399</span>                 :             : #ifdef FORTE_LITTLE_ENDIAN</span>
+<span id="L400"><span class="lineNum">     400</span>                 :             : # if defined(__ARMEL__) &amp;&amp; ! defined(__VFP_FP__) // Little endian ARM with old mixed endian FPA float ABI needs to swap</span>
+<span id="L401"><span class="lineNum">     401</span>                 :             :         if(CIEC_ANY::e_LREAL == paDataPoint.getDataTypeID()) {</span>
+<span id="L402"><span class="lineNum">     402</span>                 :             :           TForteUInt32 anSwapped[2];</span>
+<span id="L403"><span class="lineNum">     403</span>                 :             :           anSwapped[0] = reinterpret_cast&lt;const TForteUInt32 *&gt;(acDataPtr)[1];</span>
+<span id="L404"><span class="lineNum">     404</span>                 :             :           anSwapped[1] = reinterpret_cast&lt;const TForteUInt32 *&gt;(acDataPtr)[0];</span>
+<span id="L405"><span class="lineNum">     405</span>                 :             :           acDataPtr = reinterpret_cast&lt;const TForteByte*&gt;(&amp;anSwapped[0]);</span>
+<span id="L406"><span class="lineNum">     406</span>                 :             :         }</span>
+<span id="L407"><span class="lineNum">     407</span>                 :             : # endif //defined(__ARMEL__) &amp;&amp; ! defined(__VFP_FP__)</span>
+<span id="L408"><span class="lineNum">     408</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       for(int i = 0; i &lt; nRetVal; i++){</span></span>
+<span id="L409"><span class="lineNum">     409</span>                 :<span class="tlaUNC">           0 :         paBytes[(nRetVal - 1) - i] = acDataPtr[i];</span></span>
+<span id="L410"><span class="lineNum">     410</span>                 :             :       }</span>
+<span id="L411"><span class="lineNum">     411</span>                 :             : #endif //FORTE_LITTLE_ENDIAN</span>
+<span id="L412"><span class="lineNum">     412</span>                 :             : </span>
+<span id="L413"><span class="lineNum">     413</span>                 :             : #ifdef FORTE_BIG_ENDIAN</span>
+<span id="L414"><span class="lineNum">     414</span>                 :             :       if(CIEC_ANY::e_REAL != paDataPoint.getDataTypeID()){</span>
+<span id="L415"><span class="lineNum">     415</span>                 :             :         for (int i = 0; i &lt; nRetVal; i++){</span>
+<span id="L416"><span class="lineNum">     416</span>                 :             :           paBytes[(nRetVal - 1) - i] = acDataPtr[(sizeof(CIEC_ANY::TLargestUIntValueType) - 1)-i];</span>
+<span id="L417"><span class="lineNum">     417</span>                 :             :         }</span>
+<span id="L418"><span class="lineNum">     418</span>                 :             :       }</span>
+<span id="L419"><span class="lineNum">     419</span>                 :             :       else{</span>
+<span id="L420"><span class="lineNum">     420</span>                 :             :         for (unsigned int i = 0; i &lt; nRetVal; i++){</span>
+<span id="L421"><span class="lineNum">     421</span>                 :             :           paBytes[(nRetVal - 1) - i] = acDataPtr[(sizeof(TForteFloat) - 1) - i];</span>
+<span id="L422"><span class="lineNum">     422</span>                 :             :         }</span>
+<span id="L423"><span class="lineNum">     423</span>                 :             :       }</span>
+<span id="L424"><span class="lineNum">     424</span>                 :             : #endif //FORTE_BIG_ENDIAN</span>
+<span id="L425"><span class="lineNum">     425</span>                 :             :   }</span>
+<span id="L426"><span class="lineNum">     426</span>                 :             :   else{</span>
+<span id="L427"><span class="lineNum">     427</span>                 :<span class="tlaUNC">           0 :     nRetVal = -1;</span></span>
+<span id="L428"><span class="lineNum">     428</span>                 :             :   }</span>
+<span id="L429"><span class="lineNum">     429</span>                 :             : </span>
+<span id="L430"><span class="lineNum">     430</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L431"><span class="lineNum">     431</span>                 :             : }</span>
+<span id="L432"><span class="lineNum">     432</span>                 :             : </span>
+<span id="L433"><span class="lineNum">     433</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::serializeValueTime(TForteByte* paBytes, int paStreamSize, const CIEC_TIME &amp; paTime){</span></span>
+<span id="L434"><span class="lineNum">     434</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L435"><span class="lineNum">     435</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(8 &lt;= paStreamSize){</span></span>
+<span id="L436"><span class="lineNum">     436</span>                 :<span class="tlaUNC">           0 :     TForteInt64 timeInMicroSeconds = paTime.getInMicroSeconds();</span></span>
+<span id="L437"><span class="lineNum">     437</span>                 :<span class="tlaUNC">           0 :     paBytes[0] = (TForteByte) (timeInMicroSeconds &gt;&gt; 56) &amp; 0xFF;</span></span>
+<span id="L438"><span class="lineNum">     438</span>                 :<span class="tlaUNC">           0 :     paBytes[1] = (TForteByte) (timeInMicroSeconds &gt;&gt; 48) &amp; 0xFF;</span></span>
+<span id="L439"><span class="lineNum">     439</span>                 :<span class="tlaUNC">           0 :     paBytes[2] = (TForteByte) (timeInMicroSeconds &gt;&gt; 40) &amp; 0xFF;</span></span>
+<span id="L440"><span class="lineNum">     440</span>                 :<span class="tlaUNC">           0 :     paBytes[3] = (TForteByte) (timeInMicroSeconds &gt;&gt; 32) &amp; 0xFF;</span></span>
+<span id="L441"><span class="lineNum">     441</span>                 :<span class="tlaUNC">           0 :     paBytes[4] = (TForteByte) (timeInMicroSeconds &gt;&gt; 24) &amp; 0xFF;</span></span>
+<span id="L442"><span class="lineNum">     442</span>                 :<span class="tlaUNC">           0 :     paBytes[5] = (TForteByte) (timeInMicroSeconds &gt;&gt; 16) &amp; 0xFF;</span></span>
+<span id="L443"><span class="lineNum">     443</span>                 :<span class="tlaUNC">           0 :     paBytes[6] = (TForteByte) (timeInMicroSeconds &gt;&gt; 8) &amp; 0xFF;</span></span>
+<span id="L444"><span class="lineNum">     444</span>                 :<span class="tlaUNC">           0 :     paBytes[7] = (TForteByte) (timeInMicroSeconds) &amp; 0xFF;</span></span>
+<span id="L445"><span class="lineNum">     445</span>                 :<span class="tlaUNC">           0 :     nRetVal = 8;</span></span>
+<span id="L446"><span class="lineNum">     446</span>                 :             :   }</span>
+<span id="L447"><span class="lineNum">     447</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L448"><span class="lineNum">     448</span>                 :             : }</span>
+<span id="L449"><span class="lineNum">     449</span>                 :             : </span>
+<span id="L450"><span class="lineNum">     450</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::serializeValueString(TForteByte* paBytes, int paStreamSize, const CIEC_STRING &amp; paString){</span></span>
+<span id="L451"><span class="lineNum">     451</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L452"><span class="lineNum">     452</span>                 :<span class="tlaUNC">           0 :   TForteUInt16 unStringLen = paString.length();</span></span>
+<span id="L453"><span class="lineNum">     453</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(unStringLen + 2 &lt;= paStreamSize){</span></span>
+<span id="L454"><span class="lineNum">     454</span>                 :<span class="tlaUNC">           0 :     paBytes[0] = (TForteByte) ((unStringLen &gt;&gt; 8) &amp; 0x00FF);</span></span>
+<span id="L455"><span class="lineNum">     455</span>                 :<span class="tlaUNC">           0 :     paBytes[1] = (TForteByte) (unStringLen &amp; 0x00FF);</span></span>
+<span id="L456"><span class="lineNum">     456</span>                 :<span class="tlaUNC">           0 :     paBytes += 2;</span></span>
+<span id="L457"><span class="lineNum">     457</span>                 :<span class="tlaUNC">           0 :     memcpy(paBytes, paString.getStorage().c_str(), unStringLen);</span></span>
+<span id="L458"><span class="lineNum">     458</span>                 :<span class="tlaUNC">           0 :     nRetVal = unStringLen + 2;</span></span>
+<span id="L459"><span class="lineNum">     459</span>                 :             :   }</span>
+<span id="L460"><span class="lineNum">     460</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L461"><span class="lineNum">     461</span>                 :             : }</span>
+<span id="L462"><span class="lineNum">     462</span>                 :             : </span>
+<span id="L463"><span class="lineNum">     463</span>                 :             : #ifdef FORTE_USE_WSTRING_DATATYPE</span>
+<span id="L464"><span class="lineNum">     464</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::serializeValueWString(TForteByte* paBytes, int paStreamSize, const CIEC_WSTRING &amp; paWString){</span></span>
+<span id="L465"><span class="lineNum">     465</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L466"><span class="lineNum">     466</span>                 :             : </span>
+<span id="L467"><span class="lineNum">     467</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if (paStreamSize &lt; 2) {</span></span>
+<span id="L468"><span class="lineNum">     468</span>                 :<span class="tlaUNC">           0 :     return -1;</span></span>
+<span id="L469"><span class="lineNum">     469</span>                 :             :   }</span>
+<span id="L470"><span class="lineNum">     470</span>                 :<span class="tlaUNC">           0 :   nRetVal = paWString.toUTF16(paBytes + 2, paStreamSize - 2);</span></span>
+<span id="L471"><span class="lineNum">     471</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if (nRetVal &lt; 0 || nRetVal &gt; 131070) {</span></span>
+<span id="L472"><span class="lineNum">     472</span>                 :<span class="tlaUNC">           0 :     return -1;</span></span>
+<span id="L473"><span class="lineNum">     473</span>                 :             :   }</span>
+<span id="L474"><span class="lineNum">     474</span>                 :<span class="tlaUNC">           0 :   paBytes[0] = (TForteByte) ((nRetVal &gt;&gt; 9) &amp; 0x00FF);</span></span>
+<span id="L475"><span class="lineNum">     475</span>                 :<span class="tlaUNC">           0 :   paBytes[1] = (TForteByte) ((nRetVal &gt;&gt; 1) &amp; 0x00FF);</span></span>
+<span id="L476"><span class="lineNum">     476</span>                 :<span class="tlaUNC">           0 :   nRetVal += 2;</span></span>
+<span id="L477"><span class="lineNum">     477</span>                 :             : </span>
+<span id="L478"><span class="lineNum">     478</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L479"><span class="lineNum">     479</span>                 :             : }</span>
+<span id="L480"><span class="lineNum">     480</span>                 :             : #endif</span>
+<span id="L481"><span class="lineNum">     481</span>                 :             : </span>
+<span id="L482"><span class="lineNum">     482</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::serializeArray(TForteByte *paBytes, int paStreamSize, const CIEC_ARRAY &amp;paArray) {</span></span>
+<span id="L483"><span class="lineNum">     483</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L484"><span class="lineNum">     484</span>                 :<span class="tlaUNC">           0 :   size_t nArraySize = paArray.size();</span></span>
+<span id="L485"><span class="lineNum">     485</span>                 :             : </span>
+<span id="L486"><span class="lineNum">     486</span>                 :             :   //Number of array elements</span>
+<span id="L487"><span class="lineNum">     487</span>                 :<span class="tlaUNC">           0 :   paBytes[0] = (TForteByte) ((nArraySize &gt;&gt; 8) &amp; 0x00FF);</span></span>
+<span id="L488"><span class="lineNum">     488</span>                 :<span class="tlaUNC">           0 :   paBytes[1] = (TForteByte) (nArraySize &amp; 0x00FF);</span></span>
+<span id="L489"><span class="lineNum">     489</span>                 :             : </span>
+<span id="L490"><span class="lineNum">     490</span>                 :<span class="tlaUNC">           0 :   paBytes += 2;</span></span>
+<span id="L491"><span class="lineNum">     491</span>                 :             :   //TODO should we check if the array has size zero?</span>
+<span id="L492"><span class="lineNum">     492</span>                 :             : </span>
+<span id="L493"><span class="lineNum">     493</span>                 :             : </span>
+<span id="L494"><span class="lineNum">     494</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if( CIEC_ANY::e_BOOL == paArray[0].getDataTypeID()){</span></span>
+<span id="L495"><span class="lineNum">     495</span>                 :             :     //bool arrays are special</span>
+<span id="L496"><span class="lineNum">     496</span>                 :<span class="tlaUNC">           0 :     nRetVal = 2; // array len</span></span>
+<span id="L497"><span class="lineNum">     497</span>                 :<span class="tlaUNC">           0 :     paStreamSize -= nRetVal;</span></span>
+<span id="L498"><span class="lineNum">     498</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     for(TForteUInt16 i = 0; i &lt; nArraySize; i++){ //serialize elements</span></span>
+<span id="L499"><span class="lineNum">     499</span>                 :<span class="tlaUNC">           0 :       int nSerSize = serializeDataPoint(paBytes, paStreamSize, paArray[i]);</span></span>
+<span id="L500"><span class="lineNum">     500</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(0 &lt; nSerSize){</span></span>
+<span id="L501"><span class="lineNum">     501</span>                 :<span class="tlaUNC">           0 :         nRetVal += nSerSize;</span></span>
+<span id="L502"><span class="lineNum">     502</span>                 :<span class="tlaUNC">           0 :         paBytes += nSerSize;</span></span>
+<span id="L503"><span class="lineNum">     503</span>                 :<span class="tlaUNC">           0 :         paStreamSize -= nSerSize;</span></span>
+<span id="L504"><span class="lineNum">     504</span>                 :             :       }</span>
+<span id="L505"><span class="lineNum">     505</span>                 :             :       else{</span>
+<span id="L506"><span class="lineNum">     506</span>                 :<span class="tlaUNC">           0 :         nRetVal = -1;</span></span>
+<span id="L507"><span class="lineNum">     507</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L508"><span class="lineNum">     508</span>                 :             :       }</span>
+<span id="L509"><span class="lineNum">     509</span>                 :             :     }</span>
+<span id="L510"><span class="lineNum">     510</span>                 :             :   }</span>
+<span id="L511"><span class="lineNum">     511</span>                 :             :   else{</span>
+<span id="L512"><span class="lineNum">     512</span>                 :<span class="tlaUNC">           0 :     serializeTag(paBytes, paArray[0]);</span></span>
+<span id="L513"><span class="lineNum">     513</span>                 :             : </span>
+<span id="L514"><span class="lineNum">     514</span>                 :<span class="tlaUNC">           0 :     nRetVal = 2 + 1; // array len + contained data tag</span></span>
+<span id="L515"><span class="lineNum">     515</span>                 :<span class="tlaUNC">           0 :     paStreamSize -= nRetVal;</span></span>
+<span id="L516"><span class="lineNum">     516</span>                 :             : </span>
+<span id="L517"><span class="lineNum">     517</span>                 :<span class="tlaUNC">           0 :     ++paBytes;</span></span>
+<span id="L518"><span class="lineNum">     518</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     for(TForteUInt16 i = 0; i &lt; nArraySize; i++){ //serialize elements</span></span>
+<span id="L519"><span class="lineNum">     519</span>                 :<span class="tlaUNC">           0 :       int nSerSize = serializeValue(paBytes, paStreamSize, paArray[i]);</span></span>
+<span id="L520"><span class="lineNum">     520</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(-1 == nSerSize){</span></span>
+<span id="L521"><span class="lineNum">     521</span>                 :<span class="tlaUNC">           0 :         nRetVal = -1;</span></span>
+<span id="L522"><span class="lineNum">     522</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L523"><span class="lineNum">     523</span>                 :             :       }</span>
+<span id="L524"><span class="lineNum">     524</span>                 :<span class="tlaUNC">           0 :       nRetVal += nSerSize;</span></span>
+<span id="L525"><span class="lineNum">     525</span>                 :<span class="tlaUNC">           0 :       paStreamSize -= nSerSize;</span></span>
+<span id="L526"><span class="lineNum">     526</span>                 :<span class="tlaUNC">           0 :       paBytes += nSerSize; //shift buffer array</span></span>
+<span id="L527"><span class="lineNum">     527</span>                 :             :     }</span>
+<span id="L528"><span class="lineNum">     528</span>                 :             : </span>
+<span id="L529"><span class="lineNum">     529</span>                 :             :   }</span>
+<span id="L530"><span class="lineNum">     530</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L531"><span class="lineNum">     531</span>                 :             : }</span>
+<span id="L532"><span class="lineNum">     532</span>                 :             : </span>
+<span id="L533"><span class="lineNum">     533</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::serializeValueStruct(TForteByte* paBytes, int paStreamSize, const CIEC_STRUCT &amp; paStruct) {</span></span>
+<span id="L534"><span class="lineNum">     534</span>                 :<span class="tlaUNC">           0 :   int nStreamUsed = 0;</span></span>
+<span id="L535"><span class="lineNum">     535</span>                 :<span class="tlaUNC">           0 :   int nTotalStreamUsed = 0;</span></span>
+<span id="L536"><span class="lineNum">     536</span>                 :             : </span>
+<span id="L537"><span class="lineNum">     537</span>                 :<span class="tlaUNC">           0 :   size_t structSize = paStruct.getStructSize();</span></span>
+<span id="L538"><span class="lineNum">     538</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   for (size_t i = 0; i &lt; structSize; i++){</span></span>
+<span id="L539"><span class="lineNum">     539</span>                 :<span class="tlaUNC">           0 :     const CIEC_ANY&amp; ro_val = *paStruct.getMember(i);</span></span>
+<span id="L540"><span class="lineNum">     540</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (CIEC_ANY::e_BOOL == ro_val.getDataTypeID()) {</span></span>
+<span id="L541"><span class="lineNum">     541</span>                 :             :       //Handle BOOL-values differently, since value is encoded in tag</span>
+<span id="L542"><span class="lineNum">     542</span>                 :<span class="tlaUNC">           0 :       nStreamUsed = serializeDataPoint(paBytes, paStreamSize, ro_val);</span></span>
+<span id="L543"><span class="lineNum">     543</span>                 :             :     }</span>
+<span id="L544"><span class="lineNum">     544</span>                 :             :     else {</span>
+<span id="L545"><span class="lineNum">     545</span>                 :<span class="tlaUNC">           0 :       nStreamUsed = serializeValue(paBytes, paStreamSize, ro_val);</span></span>
+<span id="L546"><span class="lineNum">     546</span>                 :             :     }</span>
+<span id="L547"><span class="lineNum">     547</span>                 :             : </span>
+<span id="L548"><span class="lineNum">     548</span>                 :             : </span>
+<span id="L549"><span class="lineNum">     549</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(-1 == nStreamUsed) {</span></span>
+<span id="L550"><span class="lineNum">     550</span>                 :<span class="tlaUNC">           0 :       nTotalStreamUsed = -1;</span></span>
+<span id="L551"><span class="lineNum">     551</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L552"><span class="lineNum">     552</span>                 :             :     }</span>
+<span id="L553"><span class="lineNum">     553</span>                 :<span class="tlaUNC">           0 :     paStreamSize -= nStreamUsed;</span></span>
+<span id="L554"><span class="lineNum">     554</span>                 :<span class="tlaUNC">           0 :     paBytes += nStreamUsed;</span></span>
+<span id="L555"><span class="lineNum">     555</span>                 :<span class="tlaUNC">           0 :     nTotalStreamUsed += nStreamUsed;</span></span>
+<span id="L556"><span class="lineNum">     556</span>                 :             :   }</span>
+<span id="L557"><span class="lineNum">     557</span>                 :<span class="tlaUNC">           0 :   return nTotalStreamUsed;</span></span>
+<span id="L558"><span class="lineNum">     558</span>                 :             : }</span>
+<span id="L559"><span class="lineNum">     559</span>                 :             : </span>
+<span id="L560"><span class="lineNum">     560</span>                 :<span class="tlaUNC">           0 : bool CFBDKASN1ComLayer::deserializeDataPointArray(const TForteByte* paBytes, unsigned int paStreamSize, CIEC_ANY **paData, size_t paDataNum){</span></span>
+<span id="L561"><span class="lineNum">     561</span>                 :<span class="tlaUNC">           0 :   bool bRetval = true;</span></span>
+<span id="L562"><span class="lineNum">     562</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(0 == paDataNum){</span></span>
+<span id="L563"><span class="lineNum">     563</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :     bRetval = ((paStreamSize == 1) &amp;&amp; (isNull(paBytes)));</span></span>
+<span id="L564"><span class="lineNum">     564</span>                 :             :   }</span>
+<span id="L565"><span class="lineNum">     565</span>                 :             :   else{</span>
+<span id="L566"><span class="lineNum">     566</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     for(size_t i = 0; i &lt; paDataNum; ++i){</span></span>
+<span id="L567"><span class="lineNum">     567</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(nullptr == paData[i]){</span></span>
+<span id="L568"><span class="lineNum">     568</span>                 :<span class="tlaUNC">           0 :         bRetval = false;</span></span>
+<span id="L569"><span class="lineNum">     569</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L570"><span class="lineNum">     570</span>                 :             :       }</span>
+<span id="L571"><span class="lineNum">     571</span>                 :<span class="tlaUNC">           0 :       int nBuf = deserializeDataPoint(paBytes, paStreamSize, *paData[i]);</span></span>
+<span id="L572"><span class="lineNum">     572</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(nBuf &lt;= 0){</span></span>
+<span id="L573"><span class="lineNum">     573</span>                 :             :         // we could not deserialize the data of we have a to small packet</span>
+<span id="L574"><span class="lineNum">     574</span>                 :             :         // with the compliance profile for feasibility demonstration's protocol we can not determine packet order</span>
+<span id="L575"><span class="lineNum">     575</span>                 :             :         // and therefore not handle</span>
+<span id="L576"><span class="lineNum">     576</span>                 :<span class="tlaUNC">           0 :         bRetval = false;</span></span>
+<span id="L577"><span class="lineNum">     577</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L578"><span class="lineNum">     578</span>                 :             :       }</span>
+<span id="L579"><span class="lineNum">     579</span>                 :<span class="tlaUNC">           0 :       paStreamSize -= nBuf;</span></span>
+<span id="L580"><span class="lineNum">     580</span>                 :<span class="tlaUNC">           0 :       paBytes += nBuf;</span></span>
+<span id="L581"><span class="lineNum">     581</span>                 :             :     }</span>
+<span id="L582"><span class="lineNum">     582</span>                 :             :   }</span>
+<span id="L583"><span class="lineNum">     583</span>                 :<span class="tlaUNC">           0 :   return bRetval;</span></span>
+<span id="L584"><span class="lineNum">     584</span>                 :             : }</span>
+<span id="L585"><span class="lineNum">     585</span>                 :             : </span>
+<span id="L586"><span class="lineNum">     586</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::deserializeDataPoint(const TForteByte* paBytes, int paStreamSize, CIEC_ANY &amp;paCIECData){</span></span>
+<span id="L587"><span class="lineNum">     587</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L588"><span class="lineNum">     588</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(0 &lt; paStreamSize &amp;&amp; e_APPLICATION == (paBytes[0] &amp; e_APPLICATION)) {</span></span>
+<span id="L589"><span class="lineNum">     589</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(deserializeTag(*paBytes, paCIECData)) {</span></span>
+<span id="L590"><span class="lineNum">     590</span>                 :<span class="tlaUNC">           0 :       nRetVal = deserializeValue(paBytes + 1, paStreamSize - 1, paCIECData) + 1;</span></span>
+<span id="L591"><span class="lineNum">     591</span>                 :             :     } else {</span>
+<span id="L592"><span class="lineNum">     592</span>                 :<span class="tlaUNC">           0 :       DEVLOG_ERROR(&quot;Datatype error\n&quot;);</span></span>
+<span id="L593"><span class="lineNum">     593</span>                 :<span class="tlaUNC">           0 :       nRetVal = -2;</span></span>
+<span id="L594"><span class="lineNum">     594</span>                 :             :     }</span>
+<span id="L595"><span class="lineNum">     595</span>                 :             :   }</span>
+<span id="L596"><span class="lineNum">     596</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L597"><span class="lineNum">     597</span>                 :             : }</span>
+<span id="L598"><span class="lineNum">     598</span>                 :             : </span>
+<span id="L599"><span class="lineNum">     599</span>                 :<span class="tlaUNC">           0 : bool CFBDKASN1ComLayer::deserializeTag(const TForteByte paByte, CIEC_ANY &amp;paCIECData){</span></span>
+<span id="L600"><span class="lineNum">     600</span>                 :             :   bool bRetVal;</span>
+<span id="L601"><span class="lineNum">     601</span>                 :<span class="tlaUNC">           0 :   CIEC_ANY::EDataTypeID eDataType = paCIECData.getDataTypeID();</span></span>
+<span id="L602"><span class="lineNum">     602</span>                 :             : </span>
+<span id="L603"><span class="lineNum">     603</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :   switch(eDataType){</span></span>
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 4 was not executed"> # </span>]
+<span id="L604"><span class="lineNum">     604</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_ANY:</span></span>
+<span id="L605"><span class="lineNum">     605</span>                 :<span class="tlaUNC">           0 :       bRetVal = deserializeTag(paByte, paCIECData.unwrap());</span></span>
+<span id="L606"><span class="lineNum">     606</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L607"><span class="lineNum">     607</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_BOOL:</span></span>
+<span id="L608"><span class="lineNum">     608</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :       bRetVal = (((e_APPLICATION + e_PRIMITIVE) == paByte) || ((e_APPLICATION + e_PRIMITIVE + CIEC_ANY::e_BOOL) == paByte));</span></span>
+<span id="L609"><span class="lineNum">     609</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(bRetVal){</span></span>
+<span id="L610"><span class="lineNum">     610</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         static_cast&lt;CIEC_BOOL &amp;&gt;(paCIECData) = CIEC_BOOL((csmDataTags[CIEC_ANY::e_BOOL][0] == paByte));</span></span>
+<span id="L611"><span class="lineNum">     611</span>                 :             :       }</span>
+<span id="L612"><span class="lineNum">     612</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L613"><span class="lineNum">     613</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_STRUCT:</span></span>
+<span id="L614"><span class="lineNum">     614</span>                 :<span class="tlaUNC">           0 :       bRetVal = (static_cast&lt;CIEC_STRUCT &amp;&gt;(paCIECData).getASN1StructType() == paByte);</span></span>
+<span id="L615"><span class="lineNum">     615</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L616"><span class="lineNum">     616</span>                 :             : #ifdef FORTE_SUPPORT_CUSTOM_SERIALIZABLE_DATATYPES</span>
+<span id="L617"><span class="lineNum">     617</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_External:</span></span>
+<span id="L618"><span class="lineNum">     618</span>                 :<span class="tlaUNC">           0 :       bRetVal = paCIECData.deserializeTag(paByte);</span></span>
+<span id="L619"><span class="lineNum">     619</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L620"><span class="lineNum">     620</span>                 :             : #endif /* FORTE_SUPPORT_CUSTOM_SERIALIZABLE_DATATYPES */</span>
+<span id="L621"><span class="lineNum">     621</span>                 :             : </span>
+<span id="L622"><span class="lineNum">     622</span>                 :<span class="tlaUNC">           0 :     default:</span></span>
+<span id="L623"><span class="lineNum">     623</span>                 :<span class="tlaUNC">           0 :       bRetVal = (csmDataTags[eDataType][0] == paByte);</span></span>
+<span id="L624"><span class="lineNum">     624</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L625"><span class="lineNum">     625</span>                 :             :   }</span>
+<span id="L626"><span class="lineNum">     626</span>                 :<span class="tlaUNC">           0 :   return bRetVal;</span></span>
+<span id="L627"><span class="lineNum">     627</span>                 :             : }</span>
+<span id="L628"><span class="lineNum">     628</span>                 :             : </span>
+<span id="L629"><span class="lineNum">     629</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::deserializeValue(const TForteByte* paBytes, int paStreamSize, CIEC_ANY &amp;paCIECData){</span></span>
+<span id="L630"><span class="lineNum">     630</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L631"><span class="lineNum">     631</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   CIEC_ANY::EDataTypeID eDataType = paCIECData.getDataTypeID();</span></span>
+<span id="L632"><span class="lineNum">     632</span>                 :             : </span>
+<span id="L633"><span class="lineNum">     633</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if (scmSimpleEncodableDataTypes.find(eDataType) != scmSimpleEncodableDataTypes.end())</span></span>
+<span id="L634"><span class="lineNum">     634</span>                 :             :   { // e_SINT to e_DATE_AND_TIME can be handled the same way</span>
+<span id="L635"><span class="lineNum">     635</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     nRetVal = deserializeValueSimpleDataType(paBytes, paStreamSize, paCIECData);</span></span>
+<span id="L636"><span class="lineNum">     636</span>                 :             :   }</span>
+<span id="L637"><span class="lineNum">     637</span>                 :             :   else{</span>
+<span id="L638"><span class="lineNum">     638</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     switch (eDataType){</span></span>
+<span class="lineNum">        </span>    <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span><span class="tlaUNC" title="Branch 6 was not executed"> # </span><span class="tlaUNC" title="Branch 7 was not executed"> # </span> 
+<span class="lineNum">        </span>             <span class="tlaUNC" title="Branch 8 was not executed"> # </span>]
+<span id="L639"><span class="lineNum">     639</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_ANY:</span></span>
+<span id="L640"><span class="lineNum">     640</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :         nRetVal = deserializeValue(paBytes, paStreamSize, paCIECData.unwrap());</span></span>
+<span id="L641"><span class="lineNum">     641</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L642"><span class="lineNum">     642</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_BOOL:</span></span>
+<span id="L643"><span class="lineNum">     643</span>                 :             :         //bool data is decoded in the bool tag</span>
+<span id="L644"><span class="lineNum">     644</span>                 :<span class="tlaUNC">           0 :         nRetVal = 0;</span></span>
+<span id="L645"><span class="lineNum">     645</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L646"><span class="lineNum">     646</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_TIME:</span></span>
+<span id="L647"><span class="lineNum">     647</span>                 :             :       case CIEC_ANY::e_LTIME:</span>
+<span id="L648"><span class="lineNum">     648</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         nRetVal = deserializeValueTime(paBytes, paStreamSize, static_cast&lt;CIEC_TIME &amp;&gt;(paCIECData));</span></span>
+<span id="L649"><span class="lineNum">     649</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L650"><span class="lineNum">     650</span>                 :             : #ifdef FORTE_USE_WSTRING_DATATYPE</span>
+<span id="L651"><span class="lineNum">     651</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_WSTRING:</span></span>
+<span id="L652"><span class="lineNum">     652</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         nRetVal = deserializeValueWString(paBytes, paStreamSize, static_cast&lt;CIEC_WSTRING &amp;&gt;(paCIECData));</span></span>
+<span id="L653"><span class="lineNum">     653</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L654"><span class="lineNum">     654</span>                 :             : #endif</span>
+<span id="L655"><span class="lineNum">     655</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_STRING:</span></span>
+<span id="L656"><span class="lineNum">     656</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         nRetVal = deserializeValueString(paBytes, paStreamSize, static_cast&lt;CIEC_STRING &amp;&gt;(paCIECData));</span></span>
+<span id="L657"><span class="lineNum">     657</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L658"><span class="lineNum">     658</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_ARRAY:</span></span>
+<span id="L659"><span class="lineNum">     659</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         nRetVal = deserializeArray(paBytes, paStreamSize, static_cast&lt;CIEC_ARRAY &amp;&gt;(paCIECData));</span></span>
+<span id="L660"><span class="lineNum">     660</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L661"><span class="lineNum">     661</span>                 :<span class="tlaUNC">           0 :       case CIEC_ANY::e_STRUCT:</span></span>
+<span id="L662"><span class="lineNum">     662</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         nRetVal = deserializeValueStruct(paBytes, paStreamSize, static_cast&lt;CIEC_STRUCT &amp;&gt;(paCIECData));</span></span>
+<span id="L663"><span class="lineNum">     663</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L664"><span class="lineNum">     664</span>                 :             : </span>
+<span id="L665"><span class="lineNum">     665</span>                 :             : #ifdef FORTE_SUPPORT_CUSTOM_SERIALIZABLE_DATATYPES</span>
+<span id="L666"><span class="lineNum">     666</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_External:</span></span>
+<span id="L667"><span class="lineNum">     667</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       nRetVal = paCIECData.deserializeCustomType(paBytes, paStreamSize);</span></span>
+<span id="L668"><span class="lineNum">     668</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L669"><span class="lineNum">     669</span>                 :             : #endif /* FORTE_SUPPORT_CUSTOM_SERIALIZABLE_DATATYPES */</span>
+<span id="L670"><span class="lineNum">     670</span>                 :<span class="tlaUNC">           0 :       default:</span></span>
+<span id="L671"><span class="lineNum">     671</span>                 :<span class="tlaUNC">           0 :         break;</span></span>
+<span id="L672"><span class="lineNum">     672</span>                 :             :     }</span>
+<span id="L673"><span class="lineNum">     673</span>                 :             :   }</span>
+<span id="L674"><span class="lineNum">     674</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L675"><span class="lineNum">     675</span>                 :             : }</span>
+<span id="L676"><span class="lineNum">     676</span>                 :             : </span>
+<span id="L677"><span class="lineNum">     677</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::deserializeValueSimpleDataType(const TForteByte* paBytes, int paStreamSize, CIEC_ANY &amp;paIECData){</span></span>
+<span id="L678"><span class="lineNum">     678</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L679"><span class="lineNum">     679</span>                 :<span class="tlaUNC">           0 :   int nValueSize = csmDataTags[paIECData.getDataTypeID()][1] - 1;</span></span>
+<span id="L680"><span class="lineNum">     680</span>                 :             : </span>
+<span id="L681"><span class="lineNum">     681</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(paStreamSize &gt;= nValueSize){</span></span>
+<span id="L682"><span class="lineNum">     682</span>                 :<span class="tlaUNC">           0 :     TForteByte *acDataPtr = paIECData.getDataPtr();</span></span>
+<span id="L683"><span class="lineNum">     683</span>                 :             : </span>
+<span id="L684"><span class="lineNum">     684</span>                 :             :     //setting mAnyData to 0</span>
+<span id="L685"><span class="lineNum">     685</span>                 :<span class="tlaUNC">           0 :     *((CIEC_ANY::TLargestUIntValueType *) acDataPtr) = 0;</span></span>
+<span id="L686"><span class="lineNum">     686</span>                 :             : </span>
+<span id="L687"><span class="lineNum">     687</span>                 :             :     //we only need to check for SINT, INT, and DINT as LINT will fill all bytes</span>
+<span id="L688"><span class="lineNum">     688</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     if(paIECData.getDataTypeID() &lt;= CIEC_ANY::e_DINT &amp;&amp; (paBytes[0] &amp; 0x80)) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L689"><span class="lineNum">     689</span>                 :             :       //we received a negative number set all bits to true</span>
+<span id="L690"><span class="lineNum">     690</span>                 :<span class="tlaUNC">           0 :       *((CIEC_ANY::TLargestIntValueType *) acDataPtr) = -1;</span></span>
+<span id="L691"><span class="lineNum">     691</span>                 :             :     }</span>
+<span id="L692"><span class="lineNum">     692</span>                 :             : </span>
+<span id="L693"><span class="lineNum">     693</span>                 :             : #ifdef FORTE_LITTLE_ENDIAN</span>
+<span id="L694"><span class="lineNum">     694</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       for(int i = 0; i &lt; nValueSize; i++){</span></span>
+<span id="L695"><span class="lineNum">     695</span>                 :<span class="tlaUNC">           0 :         acDataPtr[i] = paBytes[(nValueSize - 1) - i];</span></span>
+<span id="L696"><span class="lineNum">     696</span>                 :             :       }</span>
+<span id="L697"><span class="lineNum">     697</span>                 :             : # if defined(__ARMEL__) &amp;&amp; ! defined(__VFP_FP__) // Little endian ARM with old mixed endian FPA float ABI needs to swap</span>
+<span id="L698"><span class="lineNum">     698</span>                 :             :         if(CIEC_ANY::e_LREAL == paIECData.getDataTypeID()) {</span>
+<span id="L699"><span class="lineNum">     699</span>                 :             :           TForteUInt32 nTmp = reinterpret_cast&lt;const TForteUInt32 *&gt;(acDataPtr)[1];</span>
+<span id="L700"><span class="lineNum">     700</span>                 :             :           ((TForteUInt32 *) acDataPtr)[1] = reinterpret_cast&lt;const TForteUInt32 *&gt;(acDataPtr)[0];</span>
+<span id="L701"><span class="lineNum">     701</span>                 :             :           reinterpret_cast&lt;TForteUInt32 *&gt;(acDataPtr)[0] = nTmp;</span>
+<span id="L702"><span class="lineNum">     702</span>                 :             :         }</span>
+<span id="L703"><span class="lineNum">     703</span>                 :             : # endif //defined(__ARMEL__) &amp;&amp; ! defined(__VFP_FP__)</span>
+<span id="L704"><span class="lineNum">     704</span>                 :             : #endif //FORTE_LITTLE_ENDIAN</span>
+<span id="L705"><span class="lineNum">     705</span>                 :             : #ifdef FORTE_BIG_ENDIAN</span>
+<span id="L706"><span class="lineNum">     706</span>                 :             :       if(CIEC_ANY:: e_REAL != paIECData.getDataTypeID()){</span>
+<span id="L707"><span class="lineNum">     707</span>                 :             :         for (unsigned int i=0; i &lt; nValueSize;i++){</span>
+<span id="L708"><span class="lineNum">     708</span>                 :             :           acDataPtr[(sizeof(CIEC_ANY::TLargestUIntValueType) - 1) - i] = paBytes[(nValueSize - 1) - i];</span>
+<span id="L709"><span class="lineNum">     709</span>                 :             :         }</span>
+<span id="L710"><span class="lineNum">     710</span>                 :             :       }</span>
+<span id="L711"><span class="lineNum">     711</span>                 :             :       else{ //FLOAT must be processed this way, because it is always saved in the first 4 bytes</span>
+<span id="L712"><span class="lineNum">     712</span>                 :             :         for (unsigned int i = 0; i &lt; nValueSize; i++){</span>
+<span id="L713"><span class="lineNum">     713</span>                 :             :           acDataPtr[(sizeof(TForteFloat) - 1) - i] = paBytes[(nValueSize - 1) - i];</span>
+<span id="L714"><span class="lineNum">     714</span>                 :             :         }</span>
+<span id="L715"><span class="lineNum">     715</span>                 :             :       }</span>
+<span id="L716"><span class="lineNum">     716</span>                 :             : #endif //FORTE_BIG_ENDIAN</span>
+<span id="L717"><span class="lineNum">     717</span>                 :<span class="tlaUNC">           0 :     nRetVal = nValueSize;</span></span>
+<span id="L718"><span class="lineNum">     718</span>                 :             :   }</span>
+<span id="L719"><span class="lineNum">     719</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L720"><span class="lineNum">     720</span>                 :             : }</span>
+<span id="L721"><span class="lineNum">     721</span>                 :             : </span>
+<span id="L722"><span class="lineNum">     722</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::deserializeValueTime(const TForteByte* paBytes, int paStreamSize, CIEC_TIME &amp;paIECData){</span></span>
+<span id="L723"><span class="lineNum">     723</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L724"><span class="lineNum">     724</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(paStreamSize &gt;= 8){</span></span>
+<span id="L725"><span class="lineNum">     725</span>                 :<span class="tlaUNC">           0 :     TForteInt64 timeInMicroSeconds = ((((TForteInt64) paBytes[0]) &lt;&lt; 56) &amp; 0xFF00000000000000LL) + ((((TForteInt64) paBytes[1]) &lt;&lt; 48) &amp; 0x00FF000000000000LL) + ((((TForteInt64) paBytes[2]) &lt;&lt; 40) &amp; 0x0000FF0000000000LL) + ((((TForteInt64) paBytes[3]) &lt;&lt; 32) &amp; 0x000000FF00000000LL) + ((((TForteInt64) paBytes[4]) &lt;&lt; 24) &amp; 0x00000000FF000000) + ((((TForteInt64) paBytes[5]) &lt;&lt; 16) &amp; 0x0000000000FF0000) + ((((TForteInt64) paBytes[6]) &lt;&lt; 8) &amp; 0x000000000000FF00) + (((TForteInt64) paBytes[7]) &amp; 0x00000000000000FF);</span></span>
+<span id="L726"><span class="lineNum">     726</span>                 :<span class="tlaUNC">           0 :     paIECData.setFromMicroSeconds(timeInMicroSeconds);</span></span>
+<span id="L727"><span class="lineNum">     727</span>                 :<span class="tlaUNC">           0 :     nRetVal = 8;</span></span>
+<span id="L728"><span class="lineNum">     728</span>                 :             :   }</span>
+<span id="L729"><span class="lineNum">     729</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L730"><span class="lineNum">     730</span>                 :             : }</span>
+<span id="L731"><span class="lineNum">     731</span>                 :             : </span>
+<span id="L732"><span class="lineNum">     732</span>                 :             : #ifdef FORTE_USE_WSTRING_DATATYPE</span>
+<span id="L733"><span class="lineNum">     733</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::deserializeValueWString(const TForteByte* paBytes, int paStreamSize, CIEC_WSTRING &amp;paIECData){</span></span>
+<span id="L734"><span class="lineNum">     734</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L735"><span class="lineNum">     735</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(paStreamSize &gt;= 2){</span></span>
+<span id="L736"><span class="lineNum">     736</span>                 :<span class="tlaUNC">           0 :     TForteUInt16 unStringSize = static_cast&lt;TForteUInt16&gt;(((static_cast&lt;TForteUInt16&gt;(paBytes[0]) &lt;&lt; 8) &amp; 0xFF00) + (static_cast&lt;TForteUInt16&gt;(paBytes[1]) &amp; 0x00FF));</span></span>
+<span id="L737"><span class="lineNum">     737</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :     if(paStreamSize &gt;= (unStringSize * 2 + 2) &amp;&amp; paIECData.fromUTF16(paBytes + 2, unStringSize*2)) {</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L738"><span class="lineNum">     738</span>                 :<span class="tlaUNC">           0 :       nRetVal = unStringSize * 2 + 2;</span></span>
+<span id="L739"><span class="lineNum">     739</span>                 :             :     }</span>
+<span id="L740"><span class="lineNum">     740</span>                 :             :   }</span>
+<span id="L741"><span class="lineNum">     741</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L742"><span class="lineNum">     742</span>                 :             : }</span>
+<span id="L743"><span class="lineNum">     743</span>                 :             : #endif</span>
+<span id="L744"><span class="lineNum">     744</span>                 :             : </span>
+<span id="L745"><span class="lineNum">     745</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::deserializeValueString(const TForteByte* paBytes, int paStreamSize, CIEC_STRING &amp;paIECData){</span></span>
+<span id="L746"><span class="lineNum">     746</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L747"><span class="lineNum">     747</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(paStreamSize &gt;= 2){</span></span>
+<span id="L748"><span class="lineNum">     748</span>                 :<span class="tlaUNC">           0 :     TForteUInt16 unStringSize = static_cast&lt;TForteUInt16&gt;(((((TForteUInt16) paBytes[0]) &lt;&lt; 8) &amp; 0xFF00) + ((TForteUInt16) paBytes[1] &amp; 0x00FF));</span></span>
+<span id="L749"><span class="lineNum">     749</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(paStreamSize &gt;= (unStringSize + 2)){</span></span>
+<span id="L750"><span class="lineNum">     750</span>                 :<span class="tlaUNC">           0 :       paIECData.assign((const char*)&amp;(paBytes[2]), unStringSize);</span></span>
+<span id="L751"><span class="lineNum">     751</span>                 :<span class="tlaUNC">           0 :       nRetVal = 2 + unStringSize;</span></span>
+<span id="L752"><span class="lineNum">     752</span>                 :             :     }</span>
+<span id="L753"><span class="lineNum">     753</span>                 :             :   }</span>
+<span id="L754"><span class="lineNum">     754</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L755"><span class="lineNum">     755</span>                 :             : }</span>
+<span id="L756"><span class="lineNum">     756</span>                 :             : </span>
+<span id="L757"><span class="lineNum">     757</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::deserializeArray(const TForteByte* paBytes, int paStreamSize, CIEC_ARRAY &amp;paArray) {</span></span>
+<span id="L758"><span class="lineNum">     758</span>                 :<span class="tlaUNC">           0 :   int nRetVal = -1;</span></span>
+<span id="L759"><span class="lineNum">     759</span>                 :             : </span>
+<span id="L760"><span class="lineNum">     760</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   if(paStreamSize &gt;= 2){</span></span>
+<span id="L761"><span class="lineNum">     761</span>                 :<span class="tlaUNC">           0 :     TForteUInt16 nSize = static_cast&lt;TForteUInt16&gt;(((((TForteUInt16) paBytes[0]) &lt;&lt; 8) &amp; 0xFF00) + ((TForteUInt16) paBytes[1] &amp; 0x00FF));</span></span>
+<span id="L762"><span class="lineNum">     762</span>                 :             : </span>
+<span id="L763"><span class="lineNum">     763</span>                 :             :     //number of elements in ARRAY must be read from the incoming message</span>
+<span id="L764"><span class="lineNum">     764</span>                 :<span class="tlaUNC">           0 :     nRetVal = 2;</span></span>
+<span id="L765"><span class="lineNum">     765</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(nSize &gt; 0){</span></span>
+<span id="L766"><span class="lineNum">     766</span>                 :             :       int nValueLen;</span>
+<span id="L767"><span class="lineNum">     767</span>                 :<span class="tlaUNC">           0 :       paBytes += 2;</span></span>
+<span id="L768"><span class="lineNum">     768</span>                 :<span class="tlaUNC">           0 :       paStreamSize -= 2;</span></span>
+<span id="L769"><span class="lineNum">     769</span>                 :             : </span>
+<span id="L770"><span class="lineNum">     770</span>                 :             :       //TODO do we need to check if the array's size is bigger than 0</span>
+<span id="L771"><span class="lineNum">     771</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if(CIEC_ANY::e_BOOL == paArray[0].getDataTypeID()){</span></span>
+<span id="L772"><span class="lineNum">     772</span>                 :             :         //bool arrays are special</span>
+<span id="L773"><span class="lineNum">     773</span>                 :<span class="tlaUNC">           0 :         nValueLen = deserializeValueBoolArray(paBytes, paStreamSize, paArray, nSize);</span></span>
+<span id="L774"><span class="lineNum">     774</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if(0 &lt;= nValueLen){</span></span>
+<span id="L775"><span class="lineNum">     775</span>                 :<span class="tlaUNC">           0 :           nRetVal += nValueLen;</span></span>
+<span id="L776"><span class="lineNum">     776</span>                 :             :         }</span>
+<span id="L777"><span class="lineNum">     777</span>                 :             :         else{</span>
+<span id="L778"><span class="lineNum">     778</span>                 :<span class="tlaUNC">           0 :           nRetVal = nValueLen;</span></span>
+<span id="L779"><span class="lineNum">     779</span>                 :             :         }</span>
+<span id="L780"><span class="lineNum">     780</span>                 :             :       }</span>
+<span id="L781"><span class="lineNum">     781</span>                 :             :       else{</span>
+<span id="L782"><span class="lineNum">     782</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if(!deserializeTag(*paBytes, paArray[0])){</span></span>
+<span id="L783"><span class="lineNum">     783</span>                 :<span class="tlaUNC">           0 :           return -1;</span></span>
+<span id="L784"><span class="lineNum">     784</span>                 :             :         }</span>
+<span id="L785"><span class="lineNum">     785</span>                 :<span class="tlaUNC">           0 :         paBytes += 1;</span></span>
+<span id="L786"><span class="lineNum">     786</span>                 :<span class="tlaUNC">           0 :         paStreamSize -= 1;</span></span>
+<span id="L787"><span class="lineNum">     787</span>                 :<span class="tlaUNC">           0 :         ++nRetVal;</span></span>
+<span id="L788"><span class="lineNum">     788</span>                 :<span class="tlaUNC">           0 :         CIEC_ANY *poBufVal = nullptr;</span></span>
+<span id="L789"><span class="lineNum">     789</span>                 :<span class="tlaUNC">           0 :         size_t unArraySize = paArray.size();</span></span>
+<span id="L790"><span class="lineNum">     790</span>                 :             : </span>
+<span id="L791"><span class="lineNum">     791</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         for(TForteUInt16 i = 0; i &lt; nSize; ++i){</span></span>
+<span id="L792"><span class="lineNum">     792</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :           if(i &lt; unArraySize){</span></span>
+<span id="L793"><span class="lineNum">     793</span>                 :<span class="tlaUNC">           0 :             nValueLen = deserializeValue(paBytes, paStreamSize, paArray[i]);</span></span>
+<span id="L794"><span class="lineNum">     794</span>                 :             :           }</span>
+<span id="L795"><span class="lineNum">     795</span>                 :             :           else{</span>
+<span id="L796"><span class="lineNum">     796</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :             if(poBufVal == nullptr) {</span></span>
+<span id="L797"><span class="lineNum">     797</span>                 :<span class="tlaUNC">           0 :               poBufVal = paArray[0].clone(nullptr);</span></span>
+<span id="L798"><span class="lineNum">     798</span>                 :             :             }</span>
+<span id="L799"><span class="lineNum">     799</span>                 :<span class="tlaUNC">           0 :             nValueLen = deserializeValue(paBytes, paStreamSize, *poBufVal);</span></span>
+<span id="L800"><span class="lineNum">     800</span>                 :             :           }</span>
+<span id="L801"><span class="lineNum">     801</span>                 :             :           //size of the elements is given by the array datatype</span>
+<span id="L802"><span class="lineNum">     802</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :           if(nValueLen &lt;= 0) {</span></span>
+<span id="L803"><span class="lineNum">     803</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :             if(poBufVal != nullptr) {</span></span>
+<span id="L804"><span class="lineNum">     804</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :               delete poBufVal;</span></span>
+<span id="L805"><span class="lineNum">     805</span>                 :             :             }</span>
+<span id="L806"><span class="lineNum">     806</span>                 :<span class="tlaUNC">           0 :             return nValueLen;</span></span>
+<span id="L807"><span class="lineNum">     807</span>                 :             :           }</span>
+<span id="L808"><span class="lineNum">     808</span>                 :<span class="tlaUNC">           0 :           paStreamSize -= nValueLen;</span></span>
+<span id="L809"><span class="lineNum">     809</span>                 :<span class="tlaUNC">           0 :           paBytes += nValueLen;</span></span>
+<span id="L810"><span class="lineNum">     810</span>                 :<span class="tlaUNC">           0 :           nRetVal += nValueLen;</span></span>
+<span id="L811"><span class="lineNum">     811</span>                 :             :         }</span>
+<span id="L812"><span class="lineNum">     812</span>                 :             : </span>
+<span id="L813"><span class="lineNum">     813</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         if (poBufVal != nullptr)</span></span>
+<span id="L814"><span class="lineNum">     814</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :           delete poBufVal;</span></span>
+<span id="L815"><span class="lineNum">     815</span>                 :             :       }</span>
+<span id="L816"><span class="lineNum">     816</span>                 :             :     }</span>
+<span id="L817"><span class="lineNum">     817</span>                 :             :   }</span>
+<span id="L818"><span class="lineNum">     818</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L819"><span class="lineNum">     819</span>                 :             : }</span>
+<span id="L820"><span class="lineNum">     820</span>                 :             : </span>
+<span id="L821"><span class="lineNum">     821</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::deserializeValueBoolArray(const TForteByte* paBytes, int paStreamSize, CIEC_ARRAY &amp;paArray, TForteUInt16 paDecodedArraySize) {</span></span>
+<span id="L822"><span class="lineNum">     822</span>                 :<span class="tlaUNC">           0 :   int nRetVal = 0;</span></span>
+<span id="L823"><span class="lineNum">     823</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   CIEC_BOOL oBoolVal;  //buffer value for handling to large input data</span></span>
+<span id="L824"><span class="lineNum">     824</span>                 :             : </span>
+<span id="L825"><span class="lineNum">     825</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   size_t unArraySize = paArray.size();</span></span>
+<span id="L826"><span class="lineNum">     826</span>                 :             :   int nValueLen;</span>
+<span id="L827"><span class="lineNum">     827</span>                 :             : </span>
+<span id="L828"><span class="lineNum">     828</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   for(TForteUInt16 i = 0; i &lt; paDecodedArraySize; ++i){</span></span>
+<span id="L829"><span class="lineNum">     829</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(i &lt; unArraySize){</span></span>
+<span id="L830"><span class="lineNum">     830</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :       nValueLen = deserializeDataPoint(paBytes, paStreamSize, paArray[i]);</span></span>
+<span id="L831"><span class="lineNum">     831</span>                 :             :     }</span>
+<span id="L832"><span class="lineNum">     832</span>                 :             :     else{</span>
+<span id="L833"><span class="lineNum">     833</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       nValueLen = deserializeDataPoint(paBytes, paStreamSize, oBoolVal);</span></span>
+<span id="L834"><span class="lineNum">     834</span>                 :             :     }</span>
+<span id="L835"><span class="lineNum">     835</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(nValueLen &lt;= 0){</span></span>
+<span id="L836"><span class="lineNum">     836</span>                 :<span class="tlaUNC">           0 :       nRetVal = nValueLen;</span></span>
+<span id="L837"><span class="lineNum">     837</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L838"><span class="lineNum">     838</span>                 :             :     }</span>
+<span id="L839"><span class="lineNum">     839</span>                 :<span class="tlaUNC">           0 :     paBytes += nValueLen;</span></span>
+<span id="L840"><span class="lineNum">     840</span>                 :<span class="tlaUNC">           0 :     paStreamSize -= nValueLen;</span></span>
+<span id="L841"><span class="lineNum">     841</span>                 :<span class="tlaUNC">           0 :     nRetVal += nValueLen;</span></span>
+<span id="L842"><span class="lineNum">     842</span>                 :             :   }</span>
+<span id="L843"><span class="lineNum">     843</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L844"><span class="lineNum">     844</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L845"><span class="lineNum">     845</span>                 :             : </span>
+<span id="L846"><span class="lineNum">     846</span>                 :<span class="tlaUNC">           0 : int CFBDKASN1ComLayer::deserializeValueStruct(const TForteByte* paBytes, int paStreamSize, CIEC_STRUCT &amp;paIECData){</span></span>
+<span id="L847"><span class="lineNum">     847</span>                 :<span class="tlaUNC">           0 :   int nRetVal = 0;</span></span>
+<span id="L848"><span class="lineNum">     848</span>                 :             :   int nValueLen;</span>
+<span id="L849"><span class="lineNum">     849</span>                 :             : </span>
+<span id="L850"><span class="lineNum">     850</span>                 :<span class="tlaUNC">           0 :   size_t structSize = paIECData.getStructSize();</span></span>
+<span id="L851"><span class="lineNum">     851</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :   for (size_t i = 0; i &lt; structSize; i++){</span></span>
+<span id="L852"><span class="lineNum">     852</span>                 :<span class="tlaUNC">           0 :     CIEC_ANY&amp; ro_val = *paIECData.getMember(i);</span></span>
+<span id="L853"><span class="lineNum">     853</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if (CIEC_ANY::e_BOOL == ro_val.getDataTypeID()) {</span></span>
+<span id="L854"><span class="lineNum">     854</span>                 :             :       //Hanlde BOOL-datatype differently since value is encoded in tag</span>
+<span id="L855"><span class="lineNum">     855</span>                 :<span class="tlaUNC">           0 :       nValueLen = deserializeDataPoint(paBytes, paStreamSize, ro_val);</span></span>
+<span id="L856"><span class="lineNum">     856</span>                 :             :     }</span>
+<span id="L857"><span class="lineNum">     857</span>                 :             :     else {</span>
+<span id="L858"><span class="lineNum">     858</span>                 :<span class="tlaUNC">           0 :       nValueLen = deserializeValue(paBytes, paStreamSize, ro_val);</span></span>
+<span id="L859"><span class="lineNum">     859</span>                 :             :     }</span>
+<span id="L860"><span class="lineNum">     860</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :     if(nValueLen &lt;= 0){</span></span>
+<span id="L861"><span class="lineNum">     861</span>                 :<span class="tlaUNC">           0 :       nRetVal = nValueLen;</span></span>
+<span id="L862"><span class="lineNum">     862</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L863"><span class="lineNum">     863</span>                 :             :     }</span>
+<span id="L864"><span class="lineNum">     864</span>                 :<span class="tlaUNC">           0 :     paStreamSize -= nValueLen;</span></span>
+<span id="L865"><span class="lineNum">     865</span>                 :<span class="tlaUNC">           0 :     paBytes += nValueLen;</span></span>
+<span id="L866"><span class="lineNum">     866</span>                 :<span class="tlaUNC">           0 :     nRetVal += nValueLen;</span></span>
+<span id="L867"><span class="lineNum">     867</span>                 :             :   }</span>
+<span id="L868"><span class="lineNum">     868</span>                 :<span class="tlaUNC">           0 :   return nRetVal;</span></span>
+<span id="L869"><span class="lineNum">     869</span>                 :             : }</span>
+<span id="L870"><span class="lineNum">     870</span>                 :             : </span>
+<span id="L871"><span class="lineNum">     871</span>                 :             : </span>
+<span id="L872"><span class="lineNum">     872</span>                 :<span class="tlaUNC">           0 : size_t CFBDKASN1ComLayer::getRequiredSerializationSize(const CIEC_ANY &amp;paCIECData){</span></span>
+<span id="L873"><span class="lineNum">     873</span>                 :<span class="tlaUNC">           0 :   size_t unRetVal = 0;</span></span>
+<span id="L874"><span class="lineNum">     874</span>                 :             : </span>
+<span id="L875"><span class="lineNum">     875</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span> :<span class="tlaUNC">           0 :   switch (paCIECData.getDataTypeID()){</span></span>
+<span class="lineNum">        </span>          <span class="tlaUNC" title="Branch 4 was not executed"> # </span><span class="tlaUNC" title="Branch 5 was not executed"> # </span>]
+<span id="L876"><span class="lineNum">     876</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_ANY:</span></span>
+<span id="L877"><span class="lineNum">     877</span>                 :<span class="tlaUNC">           0 :       unRetVal = getRequiredSerializationSize(paCIECData.unwrap());</span></span>
+<span id="L878"><span class="lineNum">     878</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L879"><span class="lineNum">     879</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_STRING:</span></span>
+<span id="L880"><span class="lineNum">     880</span>                 :<span class="tlaUNC">           0 :       unRetVal += ((CIEC_STRING&amp;)paCIECData).length() + 3;</span></span>
+<span id="L881"><span class="lineNum">     881</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L882"><span class="lineNum">     882</span>                 :             : #ifdef FORTE_USE_WSTRING_DATATYPE</span>
+<span id="L883"><span class="lineNum">     883</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_WSTRING:</span></span>
+<span id="L884"><span class="lineNum">     884</span>                 :<span class="tlaUNC">           0 :       unRetVal += ((CIEC_WSTRING&amp;)paCIECData).toUTF16(nullptr, 0) + 3;</span></span>
+<span id="L885"><span class="lineNum">     885</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L886"><span class="lineNum">     886</span>                 :             : #endif</span>
+<span id="L887"><span class="lineNum">     887</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_ARRAY:</span></span>
+<span id="L888"><span class="lineNum">     888</span>                 :<span class="tlaUNC">           0 :       unRetVal += 3;</span></span>
+<span id="L889"><span class="lineNum">     889</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :       if (((CIEC_ARRAY &amp;)paCIECData).getElementDataTypeID() == CIEC_ANY::e_BOOL) {</span></span>
+<span id="L890"><span class="lineNum">     890</span>                 :<span class="tlaUNC">           0 :         unRetVal += ((CIEC_ARRAY &amp;)paCIECData).size();</span></span>
+<span id="L891"><span class="lineNum">     891</span>                 :             :       } else {</span>
+<span id="L892"><span class="lineNum">     892</span>         [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span>]:<span class="tlaUNC">           0 :         for (TForteUInt16 j = 0; j &lt; ((CIEC_ARRAY &amp;)paCIECData).size(); ++j) {</span></span>
+<span id="L893"><span class="lineNum">     893</span>                 :<span class="tlaUNC">           0 :           unRetVal += getRequiredSerializationSize((((CIEC_ARRAY &amp;)paCIECData)[j]));</span></span>
+<span id="L894"><span class="lineNum">     894</span>                 :             :         }</span>
+<span id="L895"><span class="lineNum">     895</span>                 :             :         // First element with tag, subsequent ones without - adjust</span>
+<span id="L896"><span class="lineNum">     896</span>                 :<span class="tlaUNC">           0 :         unRetVal -= ((CIEC_ARRAY &amp;)paCIECData).size() - 1;</span></span>
+<span id="L897"><span class="lineNum">     897</span>                 :             :       }</span>
+<span id="L898"><span class="lineNum">     898</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L899"><span class="lineNum">     899</span>                 :             : #ifdef FORTE_SUPPORT_CUSTOM_SERIALIZABLE_DATATYPES</span>
+<span id="L900"><span class="lineNum">     900</span>                 :<span class="tlaUNC">           0 :     case CIEC_ANY::e_External:</span></span>
+<span id="L901"><span class="lineNum">     901</span>                 :<span class="tlaUNC">           0 :       unRetVal += paCIECData.getRequiredSerializationSize();</span></span>
+<span id="L902"><span class="lineNum">     902</span>                 :             : </span>
+<span id="L903"><span class="lineNum">     903</span>                 :<span class="tlaUNC">           0 :      break;</span></span>
+<span id="L904"><span class="lineNum">     904</span>                 :             : #endif /* FORTE_SUPPORT_CUSTOM_SERIALIZABLE_DATATYPES */</span>
+<span id="L905"><span class="lineNum">     905</span>                 :             : </span>
+<span id="L906"><span class="lineNum">     906</span>                 :<span class="tlaUNC">           0 :     default:</span></span>
+<span id="L907"><span class="lineNum">     907</span>                 :<span class="tlaUNC">           0 :       unRetVal += csmDataTags[paCIECData.getDataTypeID()][1];</span></span>
+<span id="L908"><span class="lineNum">     908</span>                 :<span class="tlaUNC">           0 :       break;</span></span>
+<span id="L909"><span class="lineNum">     909</span>                 :             :   }</span>
+<span id="L910"><span class="lineNum">     910</span>                 :<span class="tlaUNC">           0 :   return unRetVal;</span></span>
+<span id="L911"><span class="lineNum">     911</span>                 :             : }</span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info.cleaned - stdfblib/net/GEN_SUBL.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="title">LCOV - code coverage report</td></tr>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+            <tr>
+              <td width="100%">
+                <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="10%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">stdfblib/net</a> - GEN_SUBL.cpp<span style="font-size: 80%;"> (source / <a href="GEN_SUBL.cpp.func-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="5%"></td>
+            <td width="5%" class="headerCovTableHead">Coverage</td>
+            <td width="5%" class="headerCovTableHead" title="Covered + Uncovered code">Total</td>
+            <td width="5%" class="headerCovTableHead" title="Exercised code only">Hit</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info.cleaned</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">10</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test Date:</td>
+            <td class="headerValue">2024-02-03 16:43:25</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td class="headerItem">Branches:</td>
+            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntry">4</td>
+            <td class="headerCovTableEntry">0</td>
+          </tr>
+                  <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+                </table>
+              </td>
+            </tr>
+
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+          </table>
+
+          <table cellpadding=0 cellspacing=0 border=0>
+            <tr>
+              <td><br></td>
+            </tr>
+            <tr>
+              <td>
+<pre class="sourceHeading">             Branch data     Line data    Source code</pre>
+<pre class="source">
+<span id="L1"><span class="lineNum">       1</span>                 :             : /*******************************************************************************</span>
+<span id="L2"><span class="lineNum">       2</span>                 :             :  * Copyright (c) 2006 - 2011 ACIN, Profactor GmbH</span>
+<span id="L3"><span class="lineNum">       3</span>                 :             :  * This program and the accompanying materials are made available under the</span>
+<span id="L4"><span class="lineNum">       4</span>                 :             :  * terms of the Eclipse Public License 2.0 which is available at</span>
+<span id="L5"><span class="lineNum">       5</span>                 :             :  * http://www.eclipse.org/legal/epl-2.0.</span>
+<span id="L6"><span class="lineNum">       6</span>                 :             :  *</span>
+<span id="L7"><span class="lineNum">       7</span>                 :             :  * SPDX-License-Identifier: EPL-2.0</span>
+<span id="L8"><span class="lineNum">       8</span>                 :             :  *</span>
+<span id="L9"><span class="lineNum">       9</span>                 :             :  * Contributors:</span>
+<span id="L10"><span class="lineNum">      10</span>                 :             :  *   Rene Smodic, Thomas Strasser, Alois Zoitl, Gerhard Ebenhofer,</span>
+<span id="L11"><span class="lineNum">      11</span>                 :             :  *   Ingo Hegny, Martin Melik Merkumians</span>
+<span id="L12"><span class="lineNum">      12</span>                 :             :  *    - initial API and implementation and/or initial documentation</span>
+<span id="L13"><span class="lineNum">      13</span>                 :             :  *******************************************************************************/</span>
+<span id="L14"><span class="lineNum">      14</span>                 :             : #include &quot;GEN_SUBL.h&quot;</span>
+<span id="L15"><span class="lineNum">      15</span>                 :             : #include &quot;comlayersmanager.h&quot;</span>
+<span id="L16"><span class="lineNum">      16</span>                 :             : </span>
+<span id="L17"><span class="lineNum">      17</span>                 :<span class="tlaUNC tlaBgUNC">           0 : DEFINE_GENERIC_FIRMWARE_FB(GEN_SUBL, g_nStringIdGEN_SUBL)</span></span>
+<span id="L18"><span class="lineNum">      18</span>                 :             : </span>
+<span id="L19"><span class="lineNum">      19</span>                 :             : </span>
+<span id="L20"><span class="lineNum">      20</span>                 :             : const char * const GEN_SUBL::scmLocalIDPrefix = &quot;loc[&quot;;</span>
+<span id="L21"><span class="lineNum">      21</span>                 :             : const char * const GEN_SUBL::scmLocalIDSuffix = &quot;]&quot;;</span>
+<span id="L22"><span class="lineNum">      22</span>                 :             : </span>
+<span id="L23"><span class="lineNum">      23</span>                 :<span class="tlaUNC">           0 : GEN_SUBL::GEN_SUBL(const CStringDictionary::TStringId paInstanceNameId, forte::core::CFBContainer &amp;paContainer):</span></span>
+<span id="L24"><span class="lineNum">      24</span>                 :<span class="tlaUNC">           0 :           GEN_SUBSCRIBE( paInstanceNameId, paContainer){</span></span>
+<span id="L25"><span class="lineNum">      25</span>                 :<span class="tlaUNC">           0 : }</span></span>
+<span id="L26"><span class="lineNum">      26</span>                 :             : </span>
+<span id="L27"><span class="lineNum">      27</span>                 :<span class="tlaUNC">           0 : bool GEN_SUBL::configureFB(const char *paConfigString){</span></span>
+<span id="L28"><span class="lineNum">      28</span>                 :<span class="tlaUNC">           0 :   bool bRetVal = GEN_SUBSCRIBE::configureFB(paConfigString);</span></span>
+<span id="L29"><span class="lineNum">      29</span>                 :             :   //subls normally don't show the QI in the tool</span>
+<span id="L30"><span class="lineNum">      30</span>   [<span class="tlaUNC" title="Branch 0 was not executed"> # </span><span class="tlaUNC" title="Branch 1 was not executed"> # </span><span class="tlaUNC" title="Branch 2 was not executed"> # </span><span class="tlaUNC" title="Branch 3 was not executed"> # </span>]:<span class="tlaUNC">           0 :   QI() = CIEC_BOOL(true);</span></span>
+<span id="L31"><span class="lineNum">      31</span>                 :<span class="tlaUNC">           0 :   return bRetVal;</span></span>
+<span id="L32"><span class="lineNum">      32</span>                 :             : }</span>
+<span id="L33"><span class="lineNum">      33</span>                 :             : </span>
+<span id="L34"><span class="lineNum">      34</span>                 :<span class="tlaUNC">           0 : char * GEN_SUBL::getDefaultIDString(const char *paID){</span></span>
+<span id="L35"><span class="lineNum">      35</span>                 :<span class="tlaUNC">           0 :   return buildIDString(scmLocalIDPrefix, paID, scmLocalIDSuffix);</span></span>
+<span id="L36"><span class="lineNum">      36</span>                 :             : }</span>
+<span id="L37"><span class="lineNum">      37</span>                 :             : </span>
+        </pre>
+              </td>
+            </tr>
+          </table>
+          <br>
+
+          <table width="100%" border=0 cellspacing=0 cellpadding=0>
+            <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+            <tr><td class="versionInfo">Generated by: <a href="https://github.com//linux-test-project/lcov" target="_parent">LCOV version 2.0-1</a></td></tr>
+          </table>
+          <br>
+
+</body>
+</html>
