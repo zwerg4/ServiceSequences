@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="B_1Event_5States_Unreachable" Comment="Basic FB with empty ECC">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="AK124910" Date="2023-09-22">
+	</VersionInfo>
+	<CompilerInfo packageName="servSeq">
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="EI1" Type="Event" Comment="">
+			</Event>
+		</EventInputs>
+		<InputVars>
+			<VarDeclaration Name="DI1" Type="BOOL" Comment=""/>
+		</InputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial State" x="1331.578947368421" y="1200.0">
+			</ECState>
+			<ECState Name="State_1" Comment="" x="2663.157894736842" y="1200.0">
+			</ECState>
+			<ECState Name="State_2" Comment="" x="4000.0" y="1200.0">
+			</ECState>
+			<ECState Name="State_3" Comment="" x="5331.578947368421" y="1200.0">
+			</ECState>
+			<ECState Name="State_4" Comment="" x="6663.157894736842" y="1200.0">
+			</ECState>
+			<ECState Name="State_5" Comment="" x="8000.0" y="1200.0">
+			</ECState>
+			<ECState Name="State_Unreachable" Comment="" x="9115.78947368421" y="1231.578947368421">
+			</ECState>
+			<ECTransition Source="START" Destination="State_1" Condition="EI1" Comment="" x="2126.315789473684" y="1247.3684210526317"/>
+			<ECTransition Source="State_1" Destination="State_2" Condition="EI1" Comment="" x="3578.9473684210525" y="1242.1052631578948"/>
+			<ECTransition Source="State_2" Destination="State_3" Condition="EI1" Comment="" x="4957.894736842105" y="1263.157894736842"/>
+			<ECTransition Source="State_3" Destination="State_4" Condition="EI1" Comment="" x="6210.526315789473" y="1236.842105263158"/>
+			<ECTransition Source="State_4" Destination="State_5" Condition="EI1" Comment="" x="7631.578947368421" y="1263.157894736842"/>
+			<ECTransition Source="State_5" Destination="State_Unreachable" Condition="[DI1 = true]" Comment="" x="8752.631578947368" y="1263.157894736842"/>
+			<ECTransition Source="State_Unreachable" Destination="START" Condition="1" Comment="" x="5284.210526315789" y="1936.842105263158"/>
+		</ECC>
+	</BasicFB>
+	<Service RightInterface="internal_interface" LeftInterface="external" Comment="Basic FB with empty ECC">
+		<ServiceSequence Name="ServiceSequence" Comment="Coverage: 0.14285715">
+			<Attribute Name="StartState" Type="STRING" Value="START"/>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+		</ServiceSequence>
+		<ServiceSequence Name="ServiceSequence_1" Comment="Coverage: 0.14285715">
+			<Attribute Name="StartState" Type="STRING" Value="State_1"/>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+		</ServiceSequence>
+		<ServiceSequence Name="ServiceSequence_2" Comment="Coverage: 0.14285715">
+			<Attribute Name="StartState" Type="STRING" Value="State_2"/>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+		</ServiceSequence>
+		<ServiceSequence Name="ServiceSequence_3" Comment="Coverage: 0.14285715">
+			<Attribute Name="StartState" Type="STRING" Value="State_3"/>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+		</ServiceSequence>
+		<ServiceSequence Name="ServiceSequence_4" Comment="Coverage: 0.14285715">
+			<Attribute Name="StartState" Type="STRING" Value="State_4"/>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+		</ServiceSequence>
+		<ServiceSequence Name="ServiceSequence_5" Comment="Coverage: 0.14285715">
+			<Attribute Name="StartState" Type="STRING" Value="State_Unreachable"/>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+		</ServiceSequence>
+	</Service>
+</FBType>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="A_1State_3Transitions_unreachable" Comment="Basic FB with empty ECC">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="AK124910" Date="2023-11-14">
+	</VersionInfo>
+	<CompilerInfo packageName="servSeq">
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="EI1" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI2" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI3" Type="Event" Comment="">
+			</Event>
+		</EventInputs>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial State" x="2800.0" y="1463.157894736842">
+			</ECState>
+			<ECTransition Source="START" Destination="START" Condition="EI1" Comment="" x="2984.2105263157896" y="478.9473684210526"/>
+			<ECTransition Source="START" Destination="START" Condition="EI2" Comment="" x="1910.5263157894738" y="2457.8947368421054"/>
+			<ECTransition Source="START" Destination="START" Condition="EI3" Comment="" x="3710.5263157894738" y="2515.7894736842104"/>
+		</ECC>
+	</BasicFB>
+	<Service RightInterface="internal_interface" LeftInterface="external" Comment="Basic FB with empty ECC">
+	</Service>
+</FBType>
