@@ -2,7 +2,7 @@
 #include <forte_uint.h>
 #include <forte_bool.h>
 #ifdef FORTE_ENABLE_GENERATED_SOURCE_CPP
-#include "B_1Event_5States_Unreachable_ServiceSeq_gen.cpp"
+#include "B_1Event_5States_Unreachable_ServiceSeq_ALL_gen.cpp"
 #endif
 
 struct B_1Event_5States_Unreachable_TestFixture : public CFBTestFixtureBase {
