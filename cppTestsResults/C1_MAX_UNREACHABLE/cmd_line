@@ -1,0 +1,1 @@
+genhtml -o coverage coverage.info.cleaned --demangle-cpp --rc lcov_branch_coverage=1 --synthesize-missing --ignore-errors source
