@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FBType Name="D_5States_1Algo_Refactored1" Comment="Basic FB with empty ECC">
+	<Identification Standard="61499-2">
+	</Identification>
+	<VersionInfo Version="1.0" Author="AK124910" Date="2023-09-22">
+	</VersionInfo>
+	<CompilerInfo packageName="servSeq">
+	</CompilerInfo>
+	<InterfaceList>
+		<EventInputs>
+			<Event Name="EI1" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI2" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI3" Type="Event" Comment="">
+			</Event>
+			<Event Name="EI4" Type="Event" Comment="">
+			</Event>
+			<Event Name="PrintHelloWorld" Type="Event" Comment="">
+			</Event>
+		</EventInputs>
+		<EventOutputs>
+			<Event Name="Algo1" Type="Event" Comment="">
+				<With Var="OutputString"/>
+			</Event>
+		</EventOutputs>
+		<OutputVars>
+			<VarDeclaration Name="OutputString" Type="STRING" Comment=""/>
+		</OutputVars>
+	</InterfaceList>
+	<BasicFB>
+		<ECC>
+			<ECState Name="START" Comment="Initial State" x="800.0" y="1600.0">
+			</ECState>
+			<ECState Name="State_1" Comment="" x="2531.578947368421" y="531.578947368421">
+			</ECState>
+			<ECState Name="State_2" Comment="" x="2531.578947368421" y="1063.157894736842">
+			</ECState>
+			<ECState Name="State_3" Comment="" x="2531.578947368421" y="1600.0">
+			</ECState>
+			<ECState Name="State_4" Comment="" x="2531.578947368421" y="2131.578947368421">
+			</ECState>
+			<ECState Name="HW" Comment="" x="2531.578947368421" y="2663.157894736842">
+				<ECAction Algorithm="HWAlgo" Output="Algo1"/>
+			</ECState>
+			<ECTransition Source="START" Destination="State_1" Condition="EI1" Comment="" x="1763.157894736842" y="1084.2105263157894"/>
+			<ECTransition Source="State_1" Destination="START" Condition="1" Comment="" x="2189.4736842105262" y="1042.1052631578948"/>
+			<ECTransition Source="START" Destination="State_2" Condition="EI2" Comment="" x="2015.7894736842104" y="1284.2105263157894"/>
+			<ECTransition Source="State_2" Destination="START" Condition="1" Comment="" x="1952.6315789473683" y="1510.5263157894738"/>
+			<ECTransition Source="START" Destination="State_3" Condition="PrintHelloWorld" Comment="" x="1984.2105263157894" y="1631.578947368421"/>
+			<ECTransition Source="State_3" Destination="START" Condition="1" Comment="" x="1905.2631578947369" y="1805.2631578947369"/>
+			<ECTransition Source="START" Destination="State_4" Condition="EI4" Comment="" x="1868.421052631579" y="1910.5263157894738"/>
+			<ECTransition Source="State_4" Destination="START" Condition="1" Comment="" x="1742.1052631578948" y="1984.2105263157894"/>
+			<ECTransition Source="START" Destination="HW" Condition="EI3" Comment="" x="1805.2631578947369" y="2200.0"/>
+			<ECTransition Source="HW" Destination="START" Condition="1" Comment="" x="1710.5263157894738" y="2378.9473684210525"/>
+		</ECC>
+		<Algorithm Name="HWAlgo" Comment="">
+			<ST><![CDATA[ALGORITHM HWAlgo
+OutputString := CONCAT(OutputString, 'H');
+OutputString := CONCAT(OutputString, 'E');
+OutputString := CONCAT(OutputString, 'L');
+OutputString := CONCAT(OutputString, 'L');
+OutputString := CONCAT(OutputString, 'O');
+OutputString := CONCAT(OutputString, ' ');
+OutputString := CONCAT(OutputString, 'W');
+OutputString := CONCAT(OutputString, 'O');
+OutputString := CONCAT(OutputString, 'R');
+OutputString := CONCAT(OutputString, 'L');
+OutputString := CONCAT(OutputString, 'D');
+OutputString := CONCAT(OutputString, '!');
+END_ALGORITHM
+
+]]></ST>
+		</Algorithm>
+	</BasicFB>
+	<Service RightInterface="internal_interface" LeftInterface="external" Comment="Basic FB with empty ECC">
+	</Service>
+</FBType>
