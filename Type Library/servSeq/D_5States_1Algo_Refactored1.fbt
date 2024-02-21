@@ -32,27 +32,27 @@
 		<ECC>
 			<ECState Name="START" Comment="Initial State" x="800.0" y="1600.0">
 			</ECState>
-			<ECState Name="State_1" Comment="" x="2531.578947368421" y="531.578947368421">
+			<ECState Name="State_1" Comment="" x="2526.666666666667" y="526.6666666666667">
 			</ECState>
-			<ECState Name="State_2" Comment="" x="2531.578947368421" y="1063.157894736842">
+			<ECState Name="State_2" Comment="" x="2526.666666666667" y="1060.0">
 			</ECState>
-			<ECState Name="State_3" Comment="" x="2531.578947368421" y="1600.0">
+			<ECState Name="State_3" Comment="" x="2526.666666666667" y="1600.0">
 			</ECState>
-			<ECState Name="State_4" Comment="" x="2531.578947368421" y="2131.578947368421">
+			<ECState Name="State_4" Comment="" x="2526.666666666667" y="2126.666666666667">
 			</ECState>
-			<ECState Name="HW" Comment="" x="2531.578947368421" y="2663.157894736842">
+			<ECState Name="HW" Comment="" x="2526.666666666667" y="2660.0">
 				<ECAction Algorithm="HWAlgo" Output="Algo1"/>
 			</ECState>
-			<ECTransition Source="START" Destination="State_1" Condition="EI1" Comment="" x="1763.157894736842" y="1084.2105263157894"/>
-			<ECTransition Source="State_1" Destination="START" Condition="1" Comment="" x="2189.4736842105262" y="1042.1052631578948"/>
-			<ECTransition Source="START" Destination="State_2" Condition="EI2" Comment="" x="2015.7894736842104" y="1284.2105263157894"/>
-			<ECTransition Source="State_2" Destination="START" Condition="1" Comment="" x="1952.6315789473683" y="1510.5263157894738"/>
-			<ECTransition Source="START" Destination="State_3" Condition="PrintHelloWorld" Comment="" x="1984.2105263157894" y="1631.578947368421"/>
-			<ECTransition Source="State_3" Destination="START" Condition="1" Comment="" x="1905.2631578947369" y="1805.2631578947369"/>
-			<ECTransition Source="START" Destination="State_4" Condition="EI4" Comment="" x="1868.421052631579" y="1910.5263157894738"/>
-			<ECTransition Source="State_4" Destination="START" Condition="1" Comment="" x="1742.1052631578948" y="1984.2105263157894"/>
-			<ECTransition Source="START" Destination="HW" Condition="EI3" Comment="" x="1805.2631578947369" y="2200.0"/>
-			<ECTransition Source="HW" Destination="START" Condition="1" Comment="" x="1710.5263157894738" y="2378.9473684210525"/>
+			<ECTransition Source="START" Destination="State_1" Condition="EI1" Comment="" x="1760.0" y="1080.0"/>
+			<ECTransition Source="State_1" Destination="START" Condition="1" Comment="" x="2186.666666666667" y="1040.0"/>
+			<ECTransition Source="START" Destination="State_2" Condition="PrintHelloWorld" Comment="" x="2013.3333333333335" y="1280.0"/>
+			<ECTransition Source="State_2" Destination="START" Condition="1" Comment="" x="1946.6666666666667" y="1506.6666666666667"/>
+			<ECTransition Source="START" Destination="State_3" Condition="EI2" Comment="" x="1980.0" y="1626.6666666666667"/>
+			<ECTransition Source="State_3" Destination="START" Condition="1" Comment="" x="1900.0" y="1800.0"/>
+			<ECTransition Source="START" Destination="State_4" Condition="EI3" Comment="" x="1866.6666666666667" y="1906.6666666666667"/>
+			<ECTransition Source="State_4" Destination="START" Condition="1" Comment="" x="1740.0" y="1980.0"/>
+			<ECTransition Source="START" Destination="HW" Condition="EI4" Comment="" x="1800.0" y="2200.0"/>
+			<ECTransition Source="HW" Destination="START" Condition="1" Comment="" x="1706.6666666666667" y="2373.3333333333335"/>
 		</ECC>
 		<Algorithm Name="HWAlgo" Comment="">
 			<ST><![CDATA[ALGORITHM HWAlgo
@@ -74,5 +74,43 @@ END_ALGORITHM
 		</Algorithm>
 	</BasicFB>
 	<Service RightInterface="internal_interface" LeftInterface="external" Comment="Basic FB with empty ECC">
+		<ServiceSequence Name="ServiceSequence" Comment="Coverage: 1.0">
+			<Attribute Name="StartState" Type="STRING" Value="START"/>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI2" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI3" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI4" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="PrintHelloWorld" Parameters=""/>
+				<OutputPrimitive Interface="external" Event="Algo1" Parameters="OutputString:=STRING#'HELLO WORLD!';"/>
+			</ServiceTransaction>
+		</ServiceSequence>
+		<ServiceSequence Name="ServiceSequence2" Comment="Coverage: 1.0">
+			<Attribute Name="StartState" Type="STRING" Value="START"/>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="PrintHelloWorld" Parameters=""/>
+				<OutputPrimitive Interface="external" Event="Algo1" Parameters="OutputString:=STRING#'HELLO WORLD!';"/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI1" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI2" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI3" Parameters=""/>
+			</ServiceTransaction>
+			<ServiceTransaction>
+				<InputPrimitive Interface="external" Event="EI4" Parameters=""/>
+			</ServiceTransaction>
+		</ServiceSequence>
 	</Service>
 </FBType>
